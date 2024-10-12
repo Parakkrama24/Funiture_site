@@ -1,0 +1,74 @@
+.add {
+    width: 60%;
+    margin-left: max(5vw, 25px);
+    margin-top: 50px;
+    margin-bottom: 30px;
+    color: black;
+    font-size: 15px;
+    font-family: candara;
+}
+
+.add form{
+    gap: 10px;
+}
+
+.add-img-upload img{
+    width: 400px;
+    border-radius: 20px;
+}
+
+.add-product-description{
+    width: 550px;
+    margin-bottom: 20px;
+}
+
+.add-product-name{
+    width: 550px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.add-product-name input{
+    padding: 10px;
+    width: 550px;
+    border-radius: 10px;
+    font-family: candara;
+}
+
+.add-product-description textarea{
+    padding: 10px;
+    width: 550px;
+    border-radius: 10px;
+    border-color: var(--ash);
+    font-family: candara;
+}
+
+.add-category-price{
+    display: flex;
+    gap: 300px;
+    margin-bottom: 30px;    
+}
+
+.currency-label{
+    margin-top: -37px;
+    margin-left: -37px;
+    font-size: 13px;
+    font-weight: bold;
+}
+.add-category-price select, .add-category-price input{
+    max-width: 130px;
+    padding: 10px;
+    font-family: candara;
+}
+
+.add-btn{
+    max-width: 150px;
+    padding: 5px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    background-color: var(--green);
+    color: white;
+    cursor: pointer;
+    font-family: candara;
+}

@@ -1,0 +1,14 @@
+.Adminnavbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 4%;
+}
+
+.Adminnavbar .logo{
+    width: max(10%, 10px);
+}
+
+.Adminnavbar .profile{
+    width: 50px;
+}

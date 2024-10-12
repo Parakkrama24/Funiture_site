@@ -1,0 +1,43 @@
+.dashboard-before-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Full viewport height */
+    background-color: #f0f0f0; /* Light background */
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .dashboard-before-login h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .dashboard-before-login p {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 30px;
+  }
+  
+  .sign-in-btn {
+    padding: 10px 20px;
+    background-color: var(--green); /* Replace with your theme color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .sign-in-btn:hover {
+    background-color: var(--dark-green); /* Replace with a darker shade of green */
+  }
+  
+  .sign-in-btn:active {
+    background-color: var(--darkest-green); /* Replace with an even darker shade */
+    transform: scale(0.98);
+  }
+  
