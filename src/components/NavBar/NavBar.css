@@ -3,15 +3,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #fff;
-  margin-left: 30px;
-  margin-right: 30px;
+  background-color: #ffffff;
+  box-shadow: 0px 6px 24.1px -12px rgba(0, 0, 0, 0.25);
 }
 
 .navbar .logo {
   width: auto;
   height: 40px;
   position: relative;
+  margin-left: 30px;
+  margin-top: 06px;
+
 }
 
 .navbar-menu {
@@ -115,6 +117,8 @@
   display: flex;
   align-items: center;
   gap: 40px;
+  margin-right: 30px;
+
 }
 
 .navbar button {
@@ -152,3 +156,47 @@
   top: -8px;
   right: -8px;
 }
+
+.profile-dropdown {
+  position: absolute;
+  top: 12%; /* Places the dropdown right below the profile image */
+  left: 57%; /* Align the dropdown to the left of the profile image */
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 100; /* Make sure dropdown appears on top of other elements */
+  width: 200px; /* Set a fixed width if needed */
+}
+
+.profile-dropdown ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.profile-dropdown li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.profile-dropdown li:hover {
+  background-color: #f0f0f0; /* Add a hover effect */
+}
+
+.profile-image {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+.dot {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 50%;
+}
+

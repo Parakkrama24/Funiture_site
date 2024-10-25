@@ -1,13 +1,14 @@
-import logo_black from './logo_black.png'
-import close from './close.png'
-import profile from './profile.png'
 import add from './add.png'
-import task from './task.png'
-import package1 from './package1.png'
-import upload from './upload.png'
 import cart from './cart.png'
-import search from './search.png'
+import close from './close.png'
+import DecorIT from './DecorIT.png'
 import google from './google.png'
+import logo_black from './logo_black.png'
+import package1 from './package1.png'
+import profile from './profile.png'
+import search from './search.png'
+import task from './task.png'
+import upload from './upload.png'
 
 export const assets = {
     logo_black,
@@ -19,7 +20,8 @@ export const assets = {
     upload,
     cart,
     search,
-    google
+    google,
+    DecorIT
 }
 
 
