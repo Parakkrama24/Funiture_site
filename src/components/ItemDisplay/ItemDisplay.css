@@ -1,0 +1,24 @@
+.item-display {
+    padding: 20px;
+    text-align: left;
+    color: #333;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.item-display h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #222;
+}
+
+.item-display-name {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+    align-items: start;
+}
+
+
+
