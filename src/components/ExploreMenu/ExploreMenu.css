@@ -66,3 +66,8 @@ explore-menu h1 {
     text-align: center;
     cursor: pointer;
 }
+
+.explore-menu-category-item .active{
+    border: 4px solid var(--green);
+    padding: 2px;
+}
