@@ -3,6 +3,7 @@ import { assets } from '../../assets/assets.js';
 import './Footer.css';
 
 
+
 const Footer = ({className }) => {
   return (
     <footer className={`footer ${className}`}>      

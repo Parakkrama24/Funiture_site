@@ -3,16 +3,16 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import AdminNavbar from './components/AdminNavbar/AdminNavbar';
 import AdminSidebar from './components/AdminSidebar/AdminSidebar';
-// import Footer from './components/Footer/Footer'; // Footer import commented out
+import Footer from './components/Footer/Footer'; // Footer import uncommented
 import UserLoginPopUp from './components/LoginPopUp/UserLoginPopUp';
 import NavBar from './components/NavBar/NavBar';
 import Add from './pages/Add/Add';
 import List from './pages/List/List';
 import Orders from './pages/Orders/Orders';
 import Profile from './User/Profile/Profile';
-import Home from './pages/Home/Home'
-import Cart from './pages/Cart/Cart'
-import PlaceOrder from './pages/PlaceOrder/PlaceOrder'
+import Home from './pages/Home/Home';
+import Cart from './pages/Cart/Cart';
+import PlaceOrder from './pages/PlaceOrder/PlaceOrder';
 
 const App = () => {
   const [userType, setUserType] = useState(null); // Track if the user is an admin or regular user
@@ -31,8 +31,6 @@ const App = () => {
     <div>
       <ToastContainer />
       <Routes>
-        
-        
         {/* Landing Page or Login Page */}
         <Route
           path="/"
@@ -50,13 +48,9 @@ const App = () => {
                   setUserType={setUserType}
                 />
               )}
-
-              
-              {/* <Footer /> */} {/* Footer component commented out */}
             </>
           }
         />
-        
 
         {/* User Panel */}
         <Route
@@ -102,7 +96,7 @@ const App = () => {
             isLoggedIn ? (
               <>
                 <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
-                <Profile /> {/* Profile component */}
+                <Profile /> 
               </>
             ) : (
               <Navigate to="/" />
@@ -110,17 +104,15 @@ const App = () => {
           }
         />
 
-        {/* Footer Page */}
-        {/* <Route path="/footer" element={<Footer />} /> */} {/* Footer route commented out */}
       </Routes>
 
-      
       <Routes>
         {/* Home Page */}
         <Route path="/" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/order" element={<PlaceOrder />} />
       </Routes>
+      <Footer />
       
     </div>
   );
