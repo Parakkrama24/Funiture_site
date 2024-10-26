@@ -1,22 +1,21 @@
-
 import React, { useState } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom'; // Added Navigate here
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import AdminNavbar from './components/AdminNavbar/AdminNavbar';
+import AdminSidebar from './components/AdminSidebar/AdminSidebar';
+// import Footer from './components/Footer/Footer'; // Footer import commented out
 import UserLoginPopUp from './components/LoginPopUp/UserLoginPopUp';
+import NavBar from './components/NavBar/NavBar';
 import Add from './pages/Add/Add';
 import List from './pages/List/List';
 import Orders from './pages/Orders/Orders';
-import AdminNavbar from './components/AdminNavbar/AdminNavbar';
-import AdminSidebar from './components/AdminSidebar/AdminSidebar';
-import NavBar from './components/NavBar/NavBar';
-import DashboardBeforeLogin from './pages/DashboardBeforeLogin';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import Profile from './User/Profile/Profile';
 
 const App = () => {
-  const [userType, setUserType] = useState(null); // To track if the user is an admin or regular user
-  const [showLogin, setShowLogin] = useState(false); // To control login popup visibility
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // To track whether the user is logged in
-  const url = "http://localhost:4000"; // URL for your backend API (if needed)
+  const [userType, setUserType] = useState(null); // Track if the user is an admin or regular user
+  const [showLogin, setShowLogin] = useState(false); // Control login popup visibility
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login state
+  const url = "http://localhost:4000"; // Backend API URL
 
   // Function to handle logout
   const handleLogout = () => {
@@ -29,7 +28,7 @@ const App = () => {
     <div>
       <ToastContainer />
       <Routes>
-        {/* Dashboard before login */}
+        {/* Landing Page or Login Page */}
         <Route
           path="/"
           element={
@@ -39,7 +38,6 @@ const App = () => {
                 handleLogout={handleLogout}
                 setShowLogin={setShowLogin}
               />
-              <DashboardBeforeLogin setShowLogin={setShowLogin} />
               {showLogin && (
                 <UserLoginPopUp
                   setShowLogin={setShowLogin}
@@ -47,6 +45,7 @@ const App = () => {
                   setUserType={setUserType}
                 />
               )}
+              {/* <Footer /> */} {/* Footer component commented out */}
             </>
           }
         />
@@ -87,11 +86,27 @@ const App = () => {
             )
           }
         />
+
+        {/* Profile Page (Accessible to both User and Admin) */}
+        <Route
+          path="/profile"
+          element={
+            isLoggedIn ? (
+              <>
+                <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
+                <Profile /> {/* Profile component */}
+              </>
+            ) : (
+              <Navigate to="/" />
+            )
+          }
+        />
+
+        {/* Footer Page */}
+        {/* <Route path="/footer" element={<Footer />} /> */} {/* Footer route commented out */}
       </Routes>
     </div>
   );
 };
 
 export default App;
-
-
