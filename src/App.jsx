@@ -31,7 +31,8 @@ const App = () => {
     <div>
       <ToastContainer />
       <Routes>
-        {/* Landing Page or Login Page */}
+
+        {/* Login Page */}
         <Route
           path="/"
           element={

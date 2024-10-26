@@ -21,6 +21,8 @@ import furnitures from './furnitures.jpg'
 import chair from './chair.png'
 import table from './table.png'
 import electric_kettle from './electric-kettle.png'
+import ar_hand from './ar_hand.png'
+import arrow from './arrow-right.png'
 
 export const assets = {
     logo_black,
@@ -45,7 +47,9 @@ export const assets = {
     wall_art,
     table,
     chair,
-    electric_kettle
+    electric_kettle,
+    ar_hand,
+    arrow
 }
 
 export const category_list=[
