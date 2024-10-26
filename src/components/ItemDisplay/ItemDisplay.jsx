@@ -12,12 +12,15 @@ const ItemDisplay = ({ category }) => {
             <h2>Top Items For You</h2>
             <div className="item-display-name">
                 {item_list.map((item, index) => {
-                    return <Item key={index}
-                        id={item._id}
-                        name={item.name}
-                        description={item.description}
-                        price={item.price}
-                        image={item.image} />
+                    if (category === "All" || category === item.category) {
+                        return <Item key={index}
+                            id={item._id}
+                            name={item.name}
+                            description={item.description}
+                            price={item.price}
+                            image={item.image} />
+                    }
+
                 })
                 }
             </div>
