@@ -10,6 +10,9 @@ import Add from './pages/Add/Add';
 import List from './pages/List/List';
 import Orders from './pages/Orders/Orders';
 import Profile from './User/Profile/Profile';
+import Home from './pages/Home/Home'
+import Cart from './pages/Cart/Cart'
+import PlaceOrder from './pages/PlaceOrder/PlaceOrder'
 
 const App = () => {
   const [userType, setUserType] = useState(null); // Track if the user is an admin or regular user
@@ -28,6 +31,8 @@ const App = () => {
     <div>
       <ToastContainer />
       <Routes>
+        
+        
         {/* Landing Page or Login Page */}
         <Route
           path="/"
@@ -45,10 +50,13 @@ const App = () => {
                   setUserType={setUserType}
                 />
               )}
+
+              
               {/* <Footer /> */} {/* Footer component commented out */}
             </>
           }
         />
+        
 
         {/* User Panel */}
         <Route
@@ -105,6 +113,15 @@ const App = () => {
         {/* Footer Page */}
         {/* <Route path="/footer" element={<Footer />} /> */} {/* Footer route commented out */}
       </Routes>
+
+      
+      <Routes>
+        {/* Home Page */}
+        <Route path="/" element={<Home />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/order" element={<PlaceOrder />} />
+      </Routes>
+      
     </div>
   );
 };

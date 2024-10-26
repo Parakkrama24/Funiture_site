@@ -9,6 +9,7 @@ import profile from './profile.png'
 import search from './search.png'
 import task from './task.png'
 import upload from './upload.png'
+import headerImage from './headerImage.jpg'
 
 export const assets = {
     logo_black,
@@ -21,7 +22,8 @@ export const assets = {
     cart,
     search,
     google,
-    DecorIT
+    DecorIT,
+    headerImage
 }
 
 
