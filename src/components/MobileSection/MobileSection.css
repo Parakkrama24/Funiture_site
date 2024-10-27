@@ -42,24 +42,29 @@ padding-top: -100px;
 /* Button Styling */
 .continue-button {
     display: flex;
-    align-items: center; 
+    align-items: center;
+    height: 40px;
+    width: 200px;
+    padding-left: 10px; 
     padding: 10px 20px;
     font-size: 1rem;
     color: #000000;
     border: 1px solid black;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
     margin-top: 55px; /* Add space between paragraph and button */
 }
 
 /* Arrow Image Styling */
 .arrow-image {
     width: 30px;
-    margin-left: 15px; /* Space between button text and arrow */
+    height: auto;
+    margin-left: 15px;
 }
 
 .continue-button:hover {
-    background-color:var(--green);
-    color: white;
+    background-color: var(--green); 
+    color: rgb(255, 255, 255);
+    border: none;
+    transition: 1s;
 }
