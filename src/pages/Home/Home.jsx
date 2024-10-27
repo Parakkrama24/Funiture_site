@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 import "./Home.css";
 import Header from '../../components/Header/Header';
-import ExploreMenu from '../../components/ExploreMenu/ExploreMenu';
-import ItemDisplay from '../../components/ItemDisplay/ItemDisplay';
+import ExploreMenuHeader from '../../components/ExploreMenuHeader/ExploreMenuHeader';
 import MobileSection from '../../components/MobileSection/MobileSection'; 
 
 function Home() {
-  const [category, setCategory] = useState("All");
+  const [category] = useState("All");
 
   return (
     <div>
       <Header />
-      <ExploreMenu category={category} setCategory={setCategory} />
-      <ItemDisplay category={category} />
+      <ExploreMenuHeader />
       <MobileSection /> 
     </div>
   );
