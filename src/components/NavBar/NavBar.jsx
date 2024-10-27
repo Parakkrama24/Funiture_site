@@ -32,10 +32,10 @@ const NavBar = ({ setShowLogin, isLoggedIn, handleLogout }) => {
     <div className='navbar'>
       <img src={assets.logo_black} alt="logo" className="logo" />
       <ul className='navbar-menu'>
-        <li onClick={() => setMenu("home")} className={menu === "home" ? "active" : ""}>Home</li>
-        <li onClick={() => setMenu("catagory")} className={menu === "catagory" ? "active" : ""}>Category</li>
-        <li onClick={() => setMenu("mobile-app")} className={menu === "mobile-app" ? "active" : ""}>Mobile App</li>
-        <li onClick={() => setMenu("about-us")} className={menu === "about-us" ? "active" : ""}>About Us</li>
+        <li onClick={() => setMenu("home")} className={menu === "home" ? "active" : ""}><Link to="/">Home</Link></li>
+        <li onClick={() => setMenu("catagory")} className={menu === "catagory" ? "active" : ""}><Link to="/category">Category</Link></li>
+        <li onClick={() => setMenu("mobile-app")} className={menu === "mobile-app" ? "active" : ""}> <Link to="/mobile-app">Mobile App</Link></li>
+        <li onClick={() => setMenu("about-us")} className={menu === "about-us" ? "active" : ""}><Link to="/about-us">About Us</Link></li>
       </ul>
 
       <div className='navbar-right'>

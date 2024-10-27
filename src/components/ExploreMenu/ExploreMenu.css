@@ -39,22 +39,18 @@ explore-menu h1 {
 
 .explore-menu-category-item img {
     width: 7.5vw;
-    /* Define the width of the circular image */
-    height: 200px;
-    /* Define the height of the circular image */
+    height: 7.5vw; /* Set height equal to width */
     object-fit: cover;
-    /* Ensure the image covers the circular container */
-    border-radius: 50%;
-    /* Crop the image into a circle */
+    border-radius: 50%; /* Ensures circular shape */
     border: 2px solid #ddd;
-    /* Optional: add a border around the circle */
     transition: transform 0.2s;
     cursor: pointer;
 }
 
+
+
 .explore-menu-category-item img:hover {
     transform: scale(1.05);
-    /* Slight zoom effect on hover */
 }
 
 .explore-menu-category-item p {

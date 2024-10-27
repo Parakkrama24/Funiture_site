@@ -13,6 +13,9 @@ import Profile from './User/Profile/Profile';
 import Home from './pages/Home/Home';
 import Cart from './pages/Cart/Cart';
 import PlaceOrder from './pages/PlaceOrder/PlaceOrder';
+import Category from './pages/Category/Category';
+import Mobileapp from './pages/Mobileapp/Mobileapp';
+import AboutUs from './pages/AboutUs/AboutUs';
 
 const App = () => {
   const [userType, setUserType] = useState(null); // Track if the user is an admin or regular user
@@ -49,24 +52,47 @@ const App = () => {
                   setUserType={setUserType}
                 />
               )}
+              <Home />
             </>
           }
         />
 
-        {/* User Panel */}
+        {/* Category Page */}
         <Route
-          path="/user-dashboard"
+          path="/category"
           element={
-            userType === 'user' ? (
-              <>
-                <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
-                <List url={url} />
-              </>
-            ) : (
-              <Navigate to="/" />
-            )
+            <>
+              <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
+              <Category />
+            </>
           }
         />
+
+        {/* Mobile App Page */}
+        <Route
+          path="/mobile-app"
+          element={
+            <>
+              <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
+              <Mobileapp />
+            </>
+          }
+        />
+
+        {/* About Us Page */}
+        <Route
+          path="/about-us"
+          element={
+            <>
+              <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
+              <AboutUs />
+            </>
+          }
+        />
+
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/order" element={<PlaceOrder />} />
+
 
         {/* Admin Panel */}
         <Route
@@ -97,7 +123,7 @@ const App = () => {
             isLoggedIn ? (
               <>
                 <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
-                <Profile /> 
+                <Profile />
               </>
             ) : (
               <Navigate to="/" />
@@ -107,14 +133,8 @@ const App = () => {
 
       </Routes>
 
-      <Routes>
-        {/* Home Page */}
-        <Route path="/" element={<Home />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/order" element={<PlaceOrder />} />
-      </Routes>
       <Footer />
-      
+
     </div>
   );
 };
