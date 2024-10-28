@@ -94,6 +94,23 @@ const App = () => {
         <Route path="/order" element={<PlaceOrder />} />
 
 
+        {/* Profile Page (Accessible to both User and Admin) */}
+        <Route
+          path="/profile"
+          element={
+            isLoggedIn ? (
+              <>
+                <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
+                <Profile /> {/* Profile component */}
+              </>
+            ) : (
+              <Navigate to="/" />
+            )
+          }
+        />
+
+
+
         {/* Admin Panel */}
         <Route
           path="/admin-dashboard/*"

@@ -23,6 +23,8 @@ import table from './table.png'
 import electric_kettle from './electric-kettle.png'
 import ar_hand from './ar_hand.png'
 import arrow from './arrow-right.png'
+import delete1 from './delete1.png'
+import edit1 from './edit1.png'
 
 export const assets = {
     logo_black,
@@ -49,7 +51,9 @@ export const assets = {
     chair,
     electric_kettle,
     ar_hand,
-    arrow
+    arrow,
+    delete1,
+    edit1
 }
 
 export const category_list=[
