@@ -1,21 +1,27 @@
 import React, { useState } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom'; // Import Navigate for redirects
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import AdminNavbar from './components/AdminNavbar/AdminNavbar';
+import AdminSidebar from './components/AdminSidebar/AdminSidebar';
+import Footer from './components/Footer/Footer'; // Footer import uncommented
 import UserLoginPopUp from './components/LoginPopUp/UserLoginPopUp';
+import NavBar from './components/NavBar/NavBar';
 import Add from './pages/Add/Add';
 import List from './pages/List/List';
 import Orders from './pages/Orders/Orders';
-import AdminNavbar from './components/AdminNavbar/AdminNavbar';
-import AdminSidebar from './components/AdminSidebar/AdminSidebar';
-import NavBar from './components/NavBar/NavBar';
-import DashboardBeforeLogin from './pages/DashboardBeforeLogin';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import Profile from './User/Profile/Profile';
+import Home from './pages/Home/Home';
+import Cart from './pages/Cart/Cart';
+import PlaceOrder from './pages/PlaceOrder/PlaceOrder';
+import Category from './pages/Category/Category';
+import Mobileapp from './pages/Mobileapp/Mobileapp';
+import AboutUs from './pages/AboutUs/AboutUs';
 
 const App = () => {
-  const [userType, setUserType] = useState(null); // To track if the user is an admin or regular user
-  const [showLogin, setShowLogin] = useState(false); // To control login popup visibility
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // To track whether the user is logged in
-  const url = "http://localhost:4000"; // URL for your backend API (if needed)
+  const [userType, setUserType] = useState(null); // Track if the user is an admin or regular user
+  const [showLogin, setShowLogin] = useState(false); // Control login popup visibility
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login state
+  const url = "http://localhost:4000"; // Backend API URL
 
   // Function to handle logout
   const handleLogout = () => {
@@ -28,7 +34,8 @@ const App = () => {
     <div>
       <ToastContainer />
       <Routes>
-        {/* Dashboard before login */}
+
+        {/* Login Page */}
         <Route
           path="/"
           element={
@@ -38,7 +45,6 @@ const App = () => {
                 handleLogout={handleLogout}
                 setShowLogin={setShowLogin}
               />
-              <DashboardBeforeLogin setShowLogin={setShowLogin} />
               {showLogin && (
                 <UserLoginPopUp
                   setShowLogin={setShowLogin}
@@ -46,18 +52,63 @@ const App = () => {
                   setUserType={setUserType}
                 />
               )}
+              <Home />
             </>
           }
         />
 
-        {/* User Panel */}
+        {/* Category Page */}
         <Route
-          path="/user-dashboard"
+          path="/category"
           element={
-            userType === 'user' ? (
+            <>
+              <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
+              <Category />
+            </>
+          }
+        />
+
+        {/* Mobile App Page */}
+        <Route
+          path="/mobile-app"
+          element={
+            <>
+              <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
+              <Mobileapp />
+            </>
+          }
+        />
+
+        {/* About Us Page */}
+        <Route
+          path="/about-us"
+          element={
+            <>
+              <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
+              <AboutUs />
+            </>
+          }
+        />
+
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/order" element={<PlaceOrder />} />
+
+
+        {/* Admin Panel */}
+        <Route
+          path="/admin-dashboard/*"
+          element={
+            userType === 'admin' ? (
               <>
-                <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
-                <List url={url} />
+                <AdminNavbar />
+                <div className="app-content">
+                  <AdminSidebar />
+                  <Routes>
+                    <Route path="add" element={<Add url={url} />} />
+                    <Route path="list" element={<List url={url} />} />
+                    <Route path="orders" element={<Orders url={url} />} />
+                  </Routes>
+                </div>
               </>
             ) : (
               <Navigate to="/" />
@@ -65,24 +116,25 @@ const App = () => {
           }
         />
 
-        {/* Admin Panel - Allow access without authentication for preview */}
+        {/* Profile Page (Accessible to both User and Admin) */}
         <Route
-          path="/admin-dashboard/*"
+          path="/profile"
           element={
-            <>
-              <AdminNavbar />
-              <div className="app-content">
-                <AdminSidebar />
-                <Routes>
-                  <Route path="add" element={<Add url={url} />} />   // /admin-dashboard/add
-                  <Route path="list" element={<List url={url} />} />    // /admin-dashboard/list
-                  <Route path="orders" element={<Orders url={url} />} />   // /admin-dashboard/orders
-                </Routes>
-              </div>
-            </>
+            isLoggedIn ? (
+              <>
+                <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
+                <Profile />
+              </>
+            ) : (
+              <Navigate to="/" />
+            )
           }
         />
+
       </Routes>
+
+      <Footer />
+
     </div>
   );
 };

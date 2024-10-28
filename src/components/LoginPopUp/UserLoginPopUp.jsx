@@ -111,7 +111,7 @@ const UserLoginPopUp = ({ setShowLogin, setUserType }) => {
                     <img onClick={() => setShowLogin(false)} src={assets.close} alt="close" />
                 </div>
                 <div className="login-popup-inputs">
-                    {/* Show email only for user/admin login */}
+                    {/* Show username only for sign-up */}
                     {currentState === "Sign Up" && (
                         <input
                             type="text"
@@ -121,14 +121,15 @@ const UserLoginPopUp = ({ setShowLogin, setUserType }) => {
                             required
                         />
                     )}
+                    {/* Show email input for all login types */}
                     <input
                         type="email"
                         placeholder='Your email'
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
-                        disabled={currentState === "ADMIN LOGIN"} // Disable email for admin login
                     />
+                    {/* Password input for all states */}
                     <input
                         type="password"
                         placeholder='Password'
@@ -144,6 +145,7 @@ const UserLoginPopUp = ({ setShowLogin, setUserType }) => {
                 {/* Display success message */}
                 {successMessage && <p className="success-message">{successMessage}</p>}
 
+                {/* Submit button */}
                 <button type='submit' id='button1'>
                     {currentState === "Sign Up" ? "Create Account" : "Log In"}
                 </button>
@@ -157,6 +159,7 @@ const UserLoginPopUp = ({ setShowLogin, setUserType }) => {
                     <p>By continuing, I agree to the terms of use & privacy policy.</p>
                 </div>
 
+                {/* Links for switching between states */}
                 {currentState !== "ADMIN LOGIN" && (
                     currentState === "LOG IN"
                         ? <p>Create a new account? <span onClick={() => setCurrentState("Sign Up")}>CLICK HERE</span></p>
