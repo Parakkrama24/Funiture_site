@@ -1,6 +1,4 @@
-// import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { assets } from '../../assets/assets.js';
 import './NavBar.css';
@@ -8,9 +6,7 @@ import './NavBar.css';
 const NavBar = ({ setShowLogin, isLoggedIn, handleLogout }) => {
   const [menu, setMenu] = useState("home");
   const [showDropdown, setShowDropdown] = useState(false);
-  // const [showLogin, setShowLogin] = useState(false);
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const [handleLogout, setHandleLogout] = useState(false);
+  const dropdownRef = useRef(null);
 
   const handleButtonClick = () => {
     if (isLoggedIn) {
@@ -19,22 +15,38 @@ const NavBar = ({ setShowLogin, isLoggedIn, handleLogout }) => {
       setShowLogin(true); // Open login modal
     }
   };
+
   const handleProfileClick = () => {
     setShowDropdown(!showDropdown);
-    console.log(showDropdown);
   };
+
   const handleSignOut = () => {
     console.log("Sign Out");
-    // Add your sign-out logic here, like clearing tokens or user data
+    // Your sign-out logic here
+    setShowDropdown(false); // Close dropdown after sign-out
   };
+
+  // Close dropdown if clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className='navbar'>
       <img src={assets.logo_black} alt="logo" className="logo" />
       <ul className='navbar-menu'>
         <li onClick={() => setMenu("home")} className={menu === "home" ? "active" : ""}><Link to="/">Home</Link></li>
-        <li onClick={() => setMenu("catagory")} className={menu === "catagory" ? "active" : ""}><Link to="/category">Category</Link></li>
-        <li onClick={() => setMenu("mobile-app")} className={menu === "mobile-app" ? "active" : ""}> <Link to="/mobile-app">Mobile App</Link></li>
+        <li onClick={() => setMenu("category")} className={menu === "category" ? "active" : ""}><Link to="/category">Category</Link></li>
+        <li onClick={() => setMenu("mobile-app")} className={menu === "mobile-app" ? "active" : ""}><Link to="/mobile-app">Mobile App</Link></li>
         <li onClick={() => setMenu("about-us")} className={menu === "about-us" ? "active" : ""}><Link to="/about-us">About Us</Link></li>
       </ul>
 
@@ -48,31 +60,22 @@ const NavBar = ({ setShowLogin, isLoggedIn, handleLogout }) => {
           <div className='dot'></div>
         </div>
 
-        {/* Conditionally render Sign In / Sign Out button */}
         <button onClick={handleButtonClick}>
           {isLoggedIn ? 'Sign Out' : 'Sign In'}
         </button>
       </div>
+
       {/* Dropdown menu */}
       {showDropdown && (
-          <div className="profile-dropdown">
-            <ul>
-              <li><Link to="/profile">Edit Profile</Link></li>
-              <li><Link to="/orders">My Orders</Link></li>
-              <li><Link to="/report-issue">Report an Issue</Link></li>
-              <li onClick={handleSignOut}>Sign Out</li>
-              <li>
-              {/* <button onClick={toggleTheme} className='theme-toggle-button'>
-                {currentTheme === 'dark' ? 'Light Mode' : 'Dark Mode'}
-                <FontAwesomeIcon
-                  icon={currentTheme === 'dark' ? faSun : faMoon}
-                  style={{ marginLeft: '8px' }}
-                />
-              </button> */}
-            </li>
-            </ul>
-          </div>
-        )}
+        <div className="profile-dropdown" ref={dropdownRef}>
+          <ul>
+            <li><Link to="/profile" onClick={() => setShowDropdown(false)}>Edit Profile</Link></li>
+            <li><Link to="/orders" onClick={() => setShowDropdown(false)}>My Orders</Link></li>
+            <li><Link to="/report-issue" onClick={() => setShowDropdown(false)}>Report an Issue</Link></li>
+            <li onClick={handleSignOut}>Sign Out</li>
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
