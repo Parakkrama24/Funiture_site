@@ -3,7 +3,7 @@ import './Add.css';
 import { assets } from '../../assets/assets';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import Upload3DModel from '../../FireBase/Upload3DModel.jsx'; // Import Firebase upload component
+import {Upload3DModel}from '../../FireBase/Upload3DModel.jsx'; // Import Firebase upload component
 
 const Add = ({ url }) => {
   const [image, setImage] = useState(false); // Item image state
