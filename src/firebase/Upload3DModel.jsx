@@ -1,7 +1,7 @@
 // src/Firebase/Upload3DModel.jsx
 import { useState } from "react";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { storage } from "./firebaseConfig";
+import { storage } from "./firebaseConfig.js";
 import "./Upload3DModel.css"
 
 const Upload3DModel = ({ setModelImageUrl }) => {
