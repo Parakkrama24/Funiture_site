@@ -98,16 +98,13 @@ const App = () => {
         <Route
           path="/profile"
           element={
-            isLoggedIn ? (
-              <>
-                <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
-                <Profile /> {/* Profile component */}
-              </>
-            ) : (
-              <Navigate to="/" />
-            )
+            <>
+              <NavBar isLoggedIn={true} handleLogout={handleLogout} /> {/* Bypass and set `isLoggedIn` to true */}
+              <Profile /> {/* Profile component */}
+            </>
           }
         />
+
 
 
 

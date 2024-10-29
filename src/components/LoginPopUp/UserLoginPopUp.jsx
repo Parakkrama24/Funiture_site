@@ -28,7 +28,7 @@ const UserLoginPopUp = ({ setShowLogin, setUserType }) => {
         }
 
         try {
-            await axios.post('http://localhost:3001/user/signUp', {
+            await axios.post('http://localhost:5000/api/users/', {
                 name: username,
                 email: email,
                 password: password
@@ -51,12 +51,15 @@ const UserLoginPopUp = ({ setShowLogin, setUserType }) => {
         setSuccessMessage('');
 
         try {
-            const result = await axios.post('http://localhost:3001/users/login', {
-                name: username,
+            const result = await axios.post('http://localhost:5000/api/users/auth', {
+                email:email,
                 password: password
+            },{
+                withCredentials: true  // Send cookies with the request
             });
 
-            if (result.data === 'success') {
+            if (result.status === 200) {
+                // localStorage.setItem('token', result.data.token);
                 setSuccessMessage('Logged in successfully!');
                 setUserType('user'); // Set user type to 'user'
                 setShowLogin(false); // Close the login popup
