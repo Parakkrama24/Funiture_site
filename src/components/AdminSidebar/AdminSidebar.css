@@ -1,0 +1,40 @@
+.Adminsidebar{
+    width: 18%;
+    min-height: 100vh;
+    border: 1.5px solid var(--ash);
+    border-top: 0 ;
+    font-size: max(1vw, 10px);
+}
+
+.Adminsidebar-options{
+    padding-top: 50px;
+    padding-left: 20%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.Adminsidebar-icon{
+    width: 20%;
+}
+
+.Adminsidebar-option{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid var(--ash);
+    border-right: 0;
+    padding: 8px 10px;
+    border-radius: 3px 0px 0px 3px;
+    cursor: pointer;
+}
+
+.Adminsidebar-option.active{
+    background-color:var(--lightbrown);
+    border-color: var(--darkbrown);
+}
+@media (max-width: 900px) {
+    .Adminsidebar-option p{
+        display: none;
+    }
+}

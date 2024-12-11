@@ -1,0 +1,70 @@
+.mobile-home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin: 50px;
+}
+
+.mobile-home-content {
+    display: flex;
+    flex-direction: row-reverse; /* Reverse the order of the elements */
+    align-items: flex-start;
+    background-color: #f8f8f8;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding-top: 70px;
+    padding-left: 70px;
+    width: 100%; /* Full page width */
+    max-width: 100%; /* Remove max-width limit */
+}
+
+.mobile-home-image {
+    width: 60%;
+}
+
+.mobile-home-text{
+padding-top: -100px;
+}
+
+.mobile-home-text h1 {
+    font-size: 2rem;
+    margin: 0;
+}
+
+.mobile-home-text p {
+    font-size: 1.1rem;
+    color: #555;
+    margin-top: 10px;
+    line-height: 1.6;
+}
+
+/* Button Styling */
+.continue-button {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    width: 200px;
+    padding-left: 10px; 
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #000000;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 55px; /* Add space between paragraph and button */
+}
+
+/* Arrow Image Styling */
+.arrow-image {
+    width: 30px;
+    height: auto;
+    margin-left: 15px;
+}
+
+.continue-button:hover {
+    background-color: var(--green); 
+    color: rgb(255, 255, 255);
+    border: none;
+    transition: 1s;
+}

@@ -4,40 +4,66 @@
 
 
 @font-face {
-    font-family: calisto;
-    src: url(../src/assets/fonts/CALISTB.TTF);
+  font-family: calisto;
+  src: url(../src/assets/fonts/CALISTB.TTF);
 }
 
 @font-face {
-    font-family: candara;
-    src: url(../src/assets/fonts/Candara.ttf);
+  font-family: candara;
+  src: url(../src/assets/fonts/Candara.ttf);
 }
 
-:root{
-    --green:#0C5E69;
-    --red:#E00A0A;
-    --darkbrown:#BDA58B;
-    --lightbrown:#DFC5AA;
-    --ash:#D9D9D9;
+:root {
+  --green: #0C5E69;
+  --red: #E00A0A;
+  --darkbrown: #BDA58B;
+  --lightbrown: #DFC5AA;
+  --ash: #D9D9D9;
 }
 
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 
 body {
-    min-height: 100vh;
+  min-height: 100vh;
 }
 
 a {
-    text-decoration: none;
-    color: inherit;
+  text-decoration: none;
+  color: inherit;
 }
 
-.app {
-    width: 80%;
-    margin: auto;
+hr {
+  border: none;
+  height: 1px;
+  background-color: var(--ash);
+  box-shadow: #D9D9D9 1px 3px 5px;
+}
+
+.app-content {
+  display: flex;
+  font-family: candara;
+}
+
+.flex-col {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.curser {
+  cursor: pointer;
+}
+
+@keyframes fadeIn{
+  0%{
+    opacity:0;
+  }
+  100%{
+    opacity: 1;
+  }
 }

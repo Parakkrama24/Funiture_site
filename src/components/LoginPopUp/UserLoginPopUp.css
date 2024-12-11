@@ -1,15 +1,18 @@
 .login-popup {
-    position: absolute;
-    z-index: 1;
+    position: fixed; /* Changed from absolute to fixed */
+    z-index: 1000; /* Ensure it stays on top */
     width: 100%;
-    height: 100%;
+    height: 100vh; /* Full viewport height */
     background-color: #00000090;
     display: grid;
+    place-items: center;
+    top: 0;
+    left: 0;
+    overflow: hidden; /* Prevent background scroll */
 }
 
 .login-popup-container {
-    place-self: center;
-    width: max(350px, 350px);
+    width: max(350px, 100%);
     color: black;
     background-color: white;
     display: flex;
@@ -21,6 +24,7 @@
     font-size: 14px;
     animation: fadeIn 0.5s ease-in-out;
     line-height: 1.8;
+    max-width: 400px;
 }
 
 @keyframes fadeIn {
@@ -61,6 +65,12 @@
     border-radius: 4px;
     font-size: 14px;
     font-family: candara;
+    transition: border-color 0.3s;
+}
+
+.login-popup-inputs input:focus {
+    border-color: var(--green);
+    /* Provide a color for focus */
 }
 
 .login-popup-container #button1 {
@@ -79,7 +89,8 @@
     font-family: calisto;
 }
 
-.login-popup-container button:hover {
+.login-popup-container button:hover,
+.login-popup-container button:focus {
     transform: scale(1.01);
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
 }
@@ -91,12 +102,12 @@
     padding: 10px 0;
     border: 1px solid black;
     background-color: transparent;
-    color: rgb(0, 0, 0);
+    color: black;
     border-radius: 4px;
     font-size: 15px;
     cursor: pointer;
     transition: all 0.3s ease;
-    font-family: Calisto;
+    font-family: calisto;
 }
 
 .login-popup-container #button2 img {
@@ -117,11 +128,10 @@
     margin-top: 5px;
 }
 
-
 .login-popup p span {
     color: var(--green);
     cursor: pointer;
-    font-weight: 500px;
+    font-weight: 500;
     font-family: calisto;
     transition: 0.3s ease-in-out;
 }
@@ -132,12 +142,39 @@
 
 .login-popup a span {
     color: var(--red);
+    /* Changed color for Admin Login link */
     cursor: pointer;
-    font-weight: 500px;
+    font-weight: 500;
     font-family: calisto;
     transition: 0.3s ease-in-out;
 }
 
 .login-popup a span:hover {
     text-decoration: underline;
+}
+
+/* Error and Success Messages */
+.error-message {
+    color: red;
+    font-size: 12px;
+    font-family: candara;
+    text-align: center;
+    margin-top: -20px;
+}
+
+.success-message {
+    color: green;
+    font-size: 12px;
+    font-family: candara;
+    text-align: center;
+    margin-top: -20px;
+}
+
+/* Add some responsive behavior */
+@media (max-width: 480px) {
+    .login-popup-container {
+        padding: 20px;
+        width: 90%;
+        gap: 25px;
+    }
 }
