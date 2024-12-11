@@ -1,30 +1,30 @@
 import add from './add.png'
 import add_green from './add_green.png'
-import minus from './minus.png'
-import minus_red from './minus_red.png'
+import ar_hand from './ar_hand.png'
+import arrow from './arrow-right.png'
+import bathwares from './bathwares.jpg'
 import cart from './cart.png'
+import chair from './chair.png'
 import close from './close.png'
 import DecorIT from './DecorIT.png'
+import delete1 from './delete1.png'
+import edit from './edit.png'
+import electric_kettle from './electric-kettle.png'
+import electronics from './electronics.jpg'
+import furnitures from './furnitures.jpg'
 import google from './google.png'
+import headerImage from './headerImage.jpg'
+import kitchen from './kitchen.jpg'
 import logo_black from './logo_black.png'
+import minus from './minus.png'
+import minus_red from './minus_red.png'
 import package1 from './package1.png'
 import profile from './profile.png'
 import search from './search.png'
+import table from './table.png'
 import task from './task.png'
 import upload from './upload.png'
-import headerImage from './headerImage.jpg'
-import kitchen from './kitchen.jpg'
-import electronics from './electronics.jpg'
-import bathwares from './bathwares.jpg'
 import wall_art from './wall_art.jpg'
-import furnitures from './furnitures.jpg'
-import chair from './chair.png'
-import table from './table.png'
-import electric_kettle from './electric-kettle.png'
-import ar_hand from './ar_hand.png'
-import arrow from './arrow-right.png'
-import delete1 from './delete1.png'
-import edit1 from './edit1.png'
 
 export const assets = {
     logo_black,
@@ -53,7 +53,7 @@ export const assets = {
     ar_hand,
     arrow,
     delete1,
-    edit1
+    edit
 }
 
 export const category_list=[

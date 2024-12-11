@@ -48,7 +48,7 @@ const Profile = (setUserType) => {
         setPassword(userData.password);
         setFirstName(userData.firstName);
         setLastName(userData.lastName);
-        setDisplayName(userData.displayName);
+        // setDisplayName(userData.displayName);
         setAddressLine1(userData.shippingAddress.addressLine1);
         setAddressLine2(userData.shippingAddress.addressLine2);
         setAreaDistrict(userData.shippingAddress.district);
@@ -61,9 +61,27 @@ const Profile = (setUserType) => {
       }
     };
 
+    
     // Call the async function
     fetchUserData();
   }, []); // Empty array ensures this runs only once after the initial render
+
+  const provinces = [
+    'Central', 'Eastern', 'Northern', 'North Central', 'North Western',
+    'Sabaragamuwa', 'Southern', 'Uva', 'Western',
+  ].sort();
+
+  const districts = {
+    Central: ['Kandy', 'Matale', 'Nuwara Eliya'].sort(),
+    Eastern: ['Ampara', 'Batticaloa', 'Trincomalee'].sort(),
+    Northern: ['Jaffna', 'Kilinochchi', 'Mannar', 'Vavuniya', 'Mullaitivu'].sort(),
+    'North Central': ['Anuradhapura', 'Polonnaruwa'].sort(),
+    'North Western': ['Kurunegala', 'Puttalam'].sort(),
+    Sabaragamuwa: ['Kegalle', 'Ratnapura'].sort(),
+    Southern: ['Galle', 'Matara', 'Hambantota'].sort(),
+    Uva: ['Badulla', 'Monaragala'].sort(),
+    Western: ['Colombo', 'Gampaha', 'Kalutara'].sort(),
+  };
 
   useEffect(() => {
     if (successMessage) {
@@ -115,7 +133,7 @@ const Profile = (setUserType) => {
       setPassword(userData.password);
       setFirstName(userData.firstName);
       setLastName(userData.lastName);
-      setDisplayName(userData.displayName);
+      // setDisplayName(userData.displayName);
       setAddressLine1(userData.shippingAddress.addressLine1);
       setAddressLine2(userData.shippingAddress.addressLine2);
       setAreaDistrict(userData.shippingAddress.district);
@@ -161,7 +179,10 @@ const Profile = (setUserType) => {
       setError('Error during saving. Please try again.');
     }
   };
-
+  const handleProvinceChange = (province) => {
+    setStateProvince(province);
+    setAreaDistrict(''); // Clear district when province changes
+  };
 
   return (
     <div className="profile-page">
@@ -173,7 +194,7 @@ const Profile = (setUserType) => {
           </div>
           <div className="icon-container">
             <img src={assets.delete1} alt="Delete Profile" className="delete-icon" title="Delete Profile" />
-            <img src={assets.edit1} alt="Edit Profile" className="edit-icon" title="Edit Profile" />
+            <img src={assets.edit} alt="Edit Profile" className="edit-icon" title="Edit Profile" />
           </div>
 
           <div className="profile-welcome">
@@ -235,24 +256,34 @@ const Profile = (setUserType) => {
               />
             </div>
             <div className="form-group">
-              <label>Area/District:</label>
-              <input
-                type="text"
-                value={areaDistrict}
-                onChange={(e) => setAreaDistrict(e.target.value)}
-                onFocus={() => handleFocus(setAreaDistrict)}  // Clears when clicked
-                placeholder='Kandy,'
-              />
+              <label>Province:</label>
+              <select
+                value={stateProvince}
+                onChange={(e) => handleProvinceChange(e.target.value)}
+              >
+                <option value="">Select Province</option>
+                {provinces.map((province) => (
+                  <option key={province} value={province}>
+                    {province}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="form-group">
-              <label>State/Province:</label>
-              <input
-                type="text"
-                value={stateProvince}
-                onChange={(e) => setStateProvince(e.target.value)}
-                onFocus={() => handleFocus(setStateProvince)}  // Clears when clicked
-                placeholder='Central'
-              />
+              <label>District:</label>
+              <select
+                value={areaDistrict}
+                onChange={(e) => setAreaDistrict(e.target.value)}
+                disabled={!stateProvince}
+              >
+                <option value="">Select District</option>
+                {stateProvince &&
+                  districts[stateProvince].map((district) => (
+                    <option key={district} value={district}>
+                      {district}
+                    </option>
+                  ))}
+              </select>
             </div>
             <div className="form-group">
               <label>Zip Code:</label>
