@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { assets } from '../../assets/assets.js';
 import './Profile.css';
 
-const Profile = (setUserType) => {
+const Profile = ({ setUserType }) => {
   // Set up state for each field with draft values
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
@@ -48,7 +48,7 @@ const Profile = (setUserType) => {
         setPassword(userData.password);
         setFirstName(userData.firstName);
         setLastName(userData.lastName);
-        setDisplayName(userData.displayName);
+        // setDisplayName(userData.displayName);
         setAddressLine1(userData.shippingAddress.addressLine1);
         setAddressLine2(userData.shippingAddress.addressLine2);
         setAreaDistrict(userData.shippingAddress.district);
@@ -61,9 +61,27 @@ const Profile = (setUserType) => {
       }
     };
 
+    
     // Call the async function
     fetchUserData();
   }, []); // Empty array ensures this runs only once after the initial render
+
+  const provinces = [
+    'Central', 'Eastern', 'Northern', 'North Central', 'North Western',
+    'Sabaragamuwa', 'Southern', 'Uva', 'Western',
+  ].sort();
+
+  const districts = {
+    Central: ['Kandy', 'Matale', 'Nuwara Eliya'].sort(),
+    Eastern: ['Ampara', 'Batticaloa', 'Trincomalee'].sort(),
+    Northern: ['Jaffna', 'Kilinochchi', 'Mannar', 'Vavuniya', 'Mullaitivu'].sort(),
+    'North Central': ['Anuradhapura', 'Polonnaruwa'].sort(),
+    'North Western': ['Kurunegala', 'Puttalam'].sort(),
+    Sabaragamuwa: ['Kegalle', 'Ratnapura'].sort(),
+    Southern: ['Galle', 'Matara', 'Hambantota'].sort(),
+    Uva: ['Badulla', 'Monaragala'].sort(),
+    Western: ['Colombo', 'Gampaha', 'Kalutara'].sort(),
+  };
 
   useEffect(() => {
     if (successMessage) {
@@ -103,7 +121,7 @@ const Profile = (setUserType) => {
   const handleResetClick = async () => {
     try {
       const response = await axios.get('http://localhost:5000/api/users/profile', {
-        withCredentials: true,  // Send cookies with the request if needed
+        withCredentials: true,  
       });
       const userData = response.data;
       console.log(userData);
@@ -115,7 +133,7 @@ const Profile = (setUserType) => {
       setPassword(userData.password);
       setFirstName(userData.firstName);
       setLastName(userData.lastName);
-      setDisplayName(userData.displayName);
+      // setDisplayName(userData.displayName);
       setAddressLine1(userData.shippingAddress.addressLine1);
       setAddressLine2(userData.shippingAddress.addressLine2);
       setAreaDistrict(userData.shippingAddress.district);
@@ -161,7 +179,10 @@ const Profile = (setUserType) => {
       setError('Error during saving. Please try again.');
     }
   };
-
+  const handleProvinceChange = (province) => {
+    setStateProvince(province);
+    setAreaDistrict(''); // Clear district when province changes
+  };
 
   return (
     <div className="profile-page">
@@ -173,7 +194,7 @@ const Profile = (setUserType) => {
           </div>
           <div className="icon-container">
             <img src={assets.delete1} alt="Delete Profile" className="delete-icon" title="Delete Profile" />
-            <img src={assets.edit1} alt="Edit Profile" className="edit-icon" title="Edit Profile" />
+            <img src={assets.edit} alt="Edit Profile" className="edit-icon" title="Edit Profile" />
           </div>
 
           <div className="profile-welcome">
@@ -235,24 +256,34 @@ const Profile = (setUserType) => {
               />
             </div>
             <div className="form-group">
-              <label>Area/District:</label>
-              <input
-                type="text"
-                value={areaDistrict}
-                onChange={(e) => setAreaDistrict(e.target.value)}
-                onFocus={() => handleFocus(setAreaDistrict)}  // Clears when clicked
-                placeholder='Kandy,'
-              />
+              <label>Province:</label>
+              <select
+                value={stateProvince}
+                onChange={(e) => handleProvinceChange(e.target.value)}
+              >
+                <option value="">Select Province</option>
+                {provinces.map((province) => (
+                  <option key={province} value={province}>
+                    {province}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="form-group">
-              <label>State/Province:</label>
-              <input
-                type="text"
-                value={stateProvince}
-                onChange={(e) => setStateProvince(e.target.value)}
-                onFocus={() => handleFocus(setStateProvince)}  // Clears when clicked
-                placeholder='Central'
-              />
+              <label>District:</label>
+              <select
+                value={areaDistrict}
+                onChange={(e) => setAreaDistrict(e.target.value)}
+                disabled={!stateProvince}
+              >
+                <option value="">Select District</option>
+                {stateProvince &&
+                  districts[stateProvince].map((district) => (
+                    <option key={district} value={district}>
+                      {district}
+                    </option>
+                  ))}
+              </select>
             </div>
             <div className="form-group">
               <label>Zip Code:</label>
@@ -305,38 +336,45 @@ const Profile = (setUserType) => {
                   // Allow only digits and the '+' sign
                   if (/^[+\d]*$/.test(value)) {
                     setContactNumber2(value);
-                  }
-                  else {
-                    setError1("Please enter a valid number")
+                  } else {
+                    setError1("Please enter a valid number");
                   }
                 }}
                 onFocus={() => handleFocus(setContactNumber2)}  // Clears when clicked
-                placeholder='0772157278'
+                placeholder="0773157278"
               />
               {error1 && <p className="error-message" style={{ color: 'red' }}>{error1}</p>}
             </div>
-
-            <div className="form-group">
+            {/* <div className="form-group">
               <label>Password:</label>
               <input className='input display-name-input'
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder='********'
-              // onFocus={() => handleFocus(setPassword)}  // Clears when clicked
+                onFocus={() => handleFocus(setPassword)}  // Clears when clicked
               />
+            </div> */}
+            <br />
+            <div className="form-actions">
+              <button className="reset-btn" onClick={handleResetClick}>
+                Reset Data
+              </button>
+              <button className="save-btn" onClick={handleSaveClick}>
+                Save
+              </button>
             </div>
-            <div className="form-buttons">
-              <button type="button" className="reset-btn" onClick={handleResetClick}>Reset Data</button>
-              <button type="button" className="save-btn" onClick={handleSaveClick}>Save Profile</button>
-            </div>
-            {successMessage && <p className="success-message">{successMessage}</p>}
-
+            {successMessage && (
+              <p className="success-message" style={{ color: 'green' }}>
+                {successMessage}
+              </p>
+            )}
           </form>
         </div>
       </div>
     </div>
-  );
-};
-
-export default Profile;
+    );
+  };
+  
+  export default Profile;
+  

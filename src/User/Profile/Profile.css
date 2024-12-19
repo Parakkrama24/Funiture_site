@@ -18,7 +18,7 @@
   justify-content: left;
   align-items: center;
   margin-left: 200px;
-  margin-top: -250px;
+  margin-top: -150px;
 
 }
 
@@ -110,6 +110,12 @@ input:not(:placeholder-shown) {
   gap: 15px;
 }
 
+.form-actions{
+  display: flex;
+  gap:10px;
+  left:300px
+}
+
 .reset-btn, .save-btn {
   padding: 10px 20px;
   border: none;
@@ -198,13 +204,14 @@ footer {
 
 .icon-container {
   display: flex;
-  gap: 10px; /* Space between icons */
+  margin-left: 38px;
+  
 }
 
 .icon-container img {
   width: 24px; /* Set icon size */
   height: 24px;
-  margin-left: 28px;
+  margin-left: 8px;
   cursor: pointer;
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
@@ -223,24 +230,24 @@ footer {
 
 .delete-icon {
   font-size: 20px;        /* Adjust icon size */
-  margin: 5px;            /* Space between icons */
+  margin: 2px;            /* Space between icons */
   cursor: pointer;        /* Change cursor to pointer */
   color: #ffffff;         /* Icon color */
   background-color: #fa0101;
   border-radius: 100%;
   border: 2px  ;    /* Add border with desired size and color */
-  padding: 5px;                 /* Add padding to increase space around the icon */
+                  
 }
 .edit-icon {
   font-size: 20px;        /* Adjust icon size */
-  margin: 5px;            /* Space between icons */
+  margin: 2px;            /* Space between icons */
   cursor: pointer;        /* Change cursor to pointer */
   color: #ffffff;         /* Icon color */
   background-color: #000000;
   border-radius: 100%;
   border-radius: 100%;
   border: 2px  ;    /* Add border with desired size and color */
-  padding: 5px;                 /* Add padding to increase space around the icon */
+                 
 
 }
 
