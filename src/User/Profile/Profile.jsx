@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { assets } from '../../assets/assets.js';
 import './Profile.css';
 
-const Profile = (setUserType) => {
+const Profile = ({ setUserType }) => {
   // Set up state for each field with draft values
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
@@ -121,7 +121,7 @@ const Profile = (setUserType) => {
   const handleResetClick = async () => {
     try {
       const response = await axios.get('http://localhost:5000/api/users/profile', {
-        withCredentials: true,  // Send cookies with the request if needed
+        withCredentials: true,  
       });
       const userData = response.data;
       console.log(userData);
@@ -336,38 +336,45 @@ const Profile = (setUserType) => {
                   // Allow only digits and the '+' sign
                   if (/^[+\d]*$/.test(value)) {
                     setContactNumber2(value);
-                  }
-                  else {
-                    setError1("Please enter a valid number")
+                  } else {
+                    setError1("Please enter a valid number");
                   }
                 }}
                 onFocus={() => handleFocus(setContactNumber2)}  // Clears when clicked
-                placeholder='0772157278'
+                placeholder="0773157278"
               />
               {error1 && <p className="error-message" style={{ color: 'red' }}>{error1}</p>}
             </div>
-
-            <div className="form-group">
+            {/* <div className="form-group">
               <label>Password:</label>
               <input className='input display-name-input'
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder='********'
-              // onFocus={() => handleFocus(setPassword)}  // Clears when clicked
+                onFocus={() => handleFocus(setPassword)}  // Clears when clicked
               />
+            </div> */}
+            <br />
+            <div className="form-actions">
+              <button className="reset-btn" onClick={handleResetClick}>
+                Reset Data
+              </button>
+              <button className="save-btn" onClick={handleSaveClick}>
+                Save
+              </button>
             </div>
-            <div className="form-buttons">
-              <button type="button" className="reset-btn" onClick={handleResetClick}>Reset Data</button>
-              <button type="button" className="save-btn" onClick={handleSaveClick}>Save Profile</button>
-            </div>
-            {successMessage && <p className="success-message">{successMessage}</p>}
-
+            {successMessage && (
+              <p className="success-message" style={{ color: 'green' }}>
+                {successMessage}
+              </p>
+            )}
           </form>
         </div>
       </div>
     </div>
-  );
-};
-
-export default Profile;
+    );
+  };
+  
+  export default Profile;
+  

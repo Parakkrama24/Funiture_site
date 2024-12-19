@@ -6,16 +6,16 @@ import AdminSidebar from './components/AdminSidebar/AdminSidebar';
 import Footer from './components/Footer/Footer'; // Footer import uncommented
 import UserLoginPopUp from './components/LoginPopUp/UserLoginPopUp';
 import NavBar from './components/NavBar/NavBar';
-import Add from './pages/Add/Add';
-import List from './pages/List/List';
-import Orders from './pages/Orders/Orders';
-import Profile from './User/Profile/Profile';
-import Home from './pages/Home/Home';
-import Cart from './pages/Cart/Cart';
-import PlaceOrder from './pages/PlaceOrder/PlaceOrder';
-import Category from './pages/Category/Category';
-import Mobileapp from './pages/Mobileapp/Mobileapp';
 import AboutUs from './pages/AboutUs/AboutUs';
+import Add from './pages/Add/Add';
+import Cart from './pages/Cart/Cart';
+import Category from './pages/Category/Category';
+import Home from './pages/Home/Home';
+import List from './pages/List/List';
+import Mobileapp from './pages/Mobileapp/Mobileapp';
+import Orders from './pages/Orders/Orders';
+import PlaceOrder from './pages/PlaceOrder/PlaceOrder';
+import Profile from './User/Profile/Profile';
 
 const App = () => {
   const [userType, setUserType] = useState(null); // Track if the user is an admin or regular user
@@ -90,7 +90,7 @@ const App = () => {
           }
         />
 
-        <Route path="/cart" element={<Cart />} />
+   
         <Route path="/order" element={<PlaceOrder />} />
 
 
@@ -132,12 +132,12 @@ const App = () => {
 
         {/* Profile Page (Accessible to both User and Admin) */}
         <Route
-          path="/profile"
+          path="/cart"
           element={
-            isLoggedIn ? (
+            !isLoggedIn ? (
               <>
-                <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
-                <Profile />
+                <NavBar isLoggedIn={true} handleLogout={handleLogout} />
+                <Cart />
               </>
             ) : (
               <Navigate to="/" />

@@ -80,28 +80,28 @@ export const category_list=[
 ]
 
 export const item_list=[
-    {
-        _id:"1",
-        name:"Table",
-        image:table,
-        price:12,
-        description:"This is a table",
-        category:"Furnitures"
-    },
-    {
-        _id:"2",
-        name:"Chair",
-        image:chair,
-        price:12,
-        description:"This is a chair",
-        category:"Furnitures"
-    },
-    {
-        _id:"3",
-        name:"Electric Kettle",
-        image:electric_kettle,
-        price:12,
-        description:"This is a electric kettle",
-        category:"Electronics"
-    }
+    // {
+    //     _id:"1",
+    //     name:"Table",
+    //     image:table,
+    //     price:12,
+    //     description:"This is a table",
+    //     category:"Furnitures"
+    // },
+    // {
+    //     _id:"2",
+    //     name:"Chair",
+    //     image:chair,
+    //     price:12,
+    //     description:"This is a chair",
+    //     category:"Furnitures"
+    // },
+    // {
+    //     _id:"3",
+    //     name:"Electric Kettle",
+    //     image:electric_kettle,
+    //     price:12,
+    //     description:"This is a electric kettle",
+    //     category:"Electronics"
+    // }
 ]

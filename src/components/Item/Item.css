@@ -11,6 +11,7 @@
     transition: transform 0.2s, box-shadow 0.2s;
     text-align: center;
     animation: fadeIn 2s;
+    width: 25%;
 }
 
 .item:hover {
@@ -135,6 +136,8 @@
     height: 24px;
     cursor: pointer;
 }
+
+
 
 
 
