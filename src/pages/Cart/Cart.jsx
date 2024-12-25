@@ -93,7 +93,7 @@ function Cart() {
                     <img
                       src={item.image}
                       alt={item.name}
-                      className="item-img"
+                      className="item-img1"
                     />
                   </td>
                   <td>{item.name}</td>

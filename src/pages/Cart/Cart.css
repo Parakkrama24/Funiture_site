@@ -65,6 +65,11 @@ body {
     width: 50px; /* Adjust the image size as needed */
     height: auto;
   }
+
+  .item-img1 {
+    width: 50px; /* Adjust the image size as needed */
+    height: 50px;
+  }
   
   .remove-btn {
     cursor: pointer; /* Pointer cursor for remove button */

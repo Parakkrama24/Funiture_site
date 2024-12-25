@@ -18,6 +18,7 @@ const Item = ({ id, name, price, description, image }) => {
                 quantity: quantity, 
                 price: price,
                 name: name,
+                image:image
             }, {
                 withCredentials: true  // Send cookies with the request
             });
