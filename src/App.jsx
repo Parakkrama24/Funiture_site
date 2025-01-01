@@ -2,26 +2,20 @@ import React, { useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import AdminNavbar from './components/AdminNavbar/AdminNavbar';
-import AdminSidebar from './components/AdminSidebar/AdminSidebar';
-import Footer from './components/Footer/Footer'; // Footer import uncommented
+import Footer from './components/Footer/Footer';
 import UserLoginPopUp from './components/LoginPopUp/UserLoginPopUp';
 import NavBar from './components/NavBar/NavBar';
 import AboutUs from './pages/AboutUs/AboutUs';
-import Add from './pages/Add/Add';
-import Cart from './pages/Cart/Cart';
 import Category from './pages/Category/Category';
 import Home from './pages/Home/Home';
-import List from './pages/List/List';
 import Mobileapp from './pages/Mobileapp/Mobileapp';
-import Orders from './pages/Orders/Orders';
-import PlaceOrder from './pages/PlaceOrder/PlaceOrder';
 import Profile from './User/Profile/Profile';
+import SampleAdminPage from './pages/CompleteAdminPage/CompleteAdminPage'; // New Admin Page
 
 const App = () => {
   const [userType, setUserType] = useState(null); // Track if the user is an admin or regular user
   const [showLogin, setShowLogin] = useState(false); // Control login popup visibility
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login state
-  const url = "http://localhost:4000"; // Backend API URL
 
   // Function to handle logout
   const handleLogout = () => {
@@ -34,7 +28,6 @@ const App = () => {
     <div>
       <ToastContainer />
       <Routes>
-
         {/* Login Page */}
         <Route
           path="/"
@@ -90,65 +83,32 @@ const App = () => {
           }
         />
 
-   
-        <Route path="/order" element={<PlaceOrder />} />
-
-
         {/* Profile Page (Accessible to both User and Admin) */}
         <Route
           path="/profile"
           element={
             <>
-              <NavBar isLoggedIn={true} handleLogout={handleLogout} /> {/* Bypass and set `isLoggedIn` to true */}
-              <Profile /> {/* Profile component */}
+              <NavBar isLoggedIn={true} handleLogout={handleLogout} />
+              <Profile />
             </>
           }
         />
 
-
-
-
-        {/* Admin Panel */}
+        {/* Admin Dashboard Redirect to Sample Page */}
         <Route
-          path="/admin-dashboard/*"
+          path="/admin-dashboard"
           element={
-            userType === 'admin' ? (
+            userType === 'admin' ? ( // Use comparison operator
               <>
-                <AdminNavbar />
-                <div className="app-content">
-                  <AdminSidebar />
-                  <Routes>
-                    <Route path="add" element={<Add url={url} />} />
-                    <Route path="list" element={<List url={url} />} />
-                    <Route path="orders" element={<Orders url={url} />} />
-                  </Routes>
-                </div>
+                <SampleAdminPage /> {/* Admin Sample Page */}
               </>
             ) : (
-              <Navigate to="/" />
+              <Navigate to="/" /> // Redirect non-admin users
             )
           }
         />
-
-        {/* Profile Page (Accessible to both User and Admin) */}
-        <Route
-          path="/cart"
-          element={
-            !isLoggedIn ? (
-              <>
-                <NavBar isLoggedIn={true} handleLogout={handleLogout} />
-                <Cart />
-              </>
-            ) : (
-              <Navigate to="/" />
-            )
-          }
-        />
-
       </Routes>
-
       <Footer />
-
     </div>
   );
 };
