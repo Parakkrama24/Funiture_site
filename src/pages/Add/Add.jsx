@@ -29,7 +29,8 @@ const Add = ({ url }) => {
       price: Number(data.price), // Ensure price is sent as a number
       category: data.category,
       image:data.image,
-      modelimage:modelImageUrl}; // 3D model image from Firebase
+      //modelimage:modelImageUrl
+      }; // 3D model image from Firebase
 
     //const response = await axios.post(`${url}/api/`, formData); // Endpoint to upload product 
     const response = await axios.post('http://localhost:5000/api/products/addProduct', itemData, {
