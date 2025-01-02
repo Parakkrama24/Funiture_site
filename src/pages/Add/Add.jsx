@@ -60,12 +60,11 @@ const Add = ({ url }) => {
           <input onChange={(e) => setImage(e.target.files[0])} type='file' id='image' hidden required />
         </div>
 
-        {/* 3D Model Image Upload */}
+       {/* 3D Model Image Upload 
         <div className='add-img-upload flex-col'>
           <p>Upload 3D Model :</p>
-          {/* Integrate the Upload3DModel component */}
           <Upload3DModel setModelImageUrl={setModelImageUrl} />
-        </div>
+        </div> */}
 
         <div className='add-product-name flex-col'>
           <p>Product Name :</p>

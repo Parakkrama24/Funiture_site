@@ -89,7 +89,7 @@ const UserLoginPopUp = ({ setShowLogin, setUserType }) => {
                 setSuccessMessage('Admin logged in successfully!');
                 setUserType('admin'); // Set user type to 'admin'
                 setShowLogin(false); // Close the login popup
-                navigate('/admin-dashboard'); // Navigate to admin dashboard
+                navigate('/admin'); // Navigate to admin dashboard
             } else {
                 setError('Invalid admin login credentials. Please try again.');
             }

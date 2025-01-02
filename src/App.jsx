@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import AdminNavbar from './components/AdminNavbar/AdminNavbar';
 import Footer from './components/Footer/Footer';
 import UserLoginPopUp from './components/LoginPopUp/UserLoginPopUp';
 import NavBar from './components/NavBar/NavBar';
@@ -10,7 +9,11 @@ import Category from './pages/Category/Category';
 import Home from './pages/Home/Home';
 import Mobileapp from './pages/Mobileapp/Mobileapp';
 import Profile from './User/Profile/Profile';
-import SampleAdminPage from './pages/CompleteAdminPage/CompleteAdminPage'; // New Admin Page
+import AdminNavbar from './components/AdminNavbar/AdminNavbar';
+import AdminSidebar from './components/AdminSidebar/AdminSidebar';
+import Add from './pages/Add/Add';
+import List from './pages/List/List';
+import Orders from './pages/Orders/Orders';
 
 const App = () => {
   const [userType, setUserType] = useState(null); // Track if the user is an admin or regular user
@@ -94,16 +97,35 @@ const App = () => {
           }
         />
 
-        {/* Admin Dashboard Redirect to Sample Page */}
+        {/* Admin Dashboard */}
         <Route
-          path="/admin-dashboard"
+          path="/admin/*"
           element={
-            userType === 'admin' ? ( // Use comparison operator
-              <>
-                <SampleAdminPage /> {/* Admin Sample Page */}
-              </>
+            userType === 'admin' ? (
+              <div className="admin-page">
+                {/* Admin Navbar */}
+                <AdminNavbar />
+
+                <div className="admin-content">
+                  {/* Admin Sidebar */}
+                  <AdminSidebar />
+
+                  <div className="main-content">
+                    <Routes>
+                      {/* Default to Add Page */}
+                      <Route path="/" element={<Navigate to="add" replace />} />
+                      {/* Add Route */}
+                      <Route path="add" element={<Add />} />
+                      {/* List Route */}
+                      <Route path="list" element={<List />} />
+                      {/* Orders Route */}
+                      <Route path="orders" element={<Orders />} />
+                    </Routes>
+                  </div>
+                </div>
+              </div>
             ) : (
-              <Navigate to="/" /> // Redirect non-admin users
+              <Navigate to="/" />
             )
           }
         />
