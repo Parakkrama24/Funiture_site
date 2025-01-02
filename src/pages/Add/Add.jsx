@@ -32,7 +32,10 @@ const Add = ({ url }) => {
       modelimage:modelImageUrl}; // 3D model image from Firebase
 
     //const response = await axios.post(`${url}/api/`, formData); // Endpoint to upload product 
-    const response = await axios.post('http://localhost:3001/admin/addItem',itemData);
+    const response = await axios.post('http://localhost:5000/api/products/addProduct', itemData, {
+      withCredentials: true,  // Include cookies in the request
+    });
+    
     if (response.data.success) {
       setData({
         name: "",
