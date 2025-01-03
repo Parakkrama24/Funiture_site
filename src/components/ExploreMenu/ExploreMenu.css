@@ -6,18 +6,20 @@
 }
 
 .explore-menu {
-    margin-top: 10vw;
+    margin-top: 1000px;
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-explore-menu h1 {
+.explore-menu h1 {
     color: black;
     font-weight: 500;
+    margin-top: 100px;
 }
 
 .explore-menu-text {
+    margin-top: 10px;
     max-width: 60%;
     color: grey;
 }
