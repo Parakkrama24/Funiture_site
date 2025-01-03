@@ -11,7 +11,7 @@
     transition: transform 0.2s, box-shadow 0.2s;
     text-align: center;
     animation: fadeIn 2s;
-    width: 25%;
+    width: 23%;
 }
 
 .item:hover {
@@ -21,14 +21,15 @@
 
 .item-img-container {
     width: 100%;
-    height: 180px;
+    height: 100%;
     overflow: hidden;
     border-radius: 8px;
 }
 
 .item-img {
-    width: 70%;
-    margin-top: 20px;
+    width: 100%;
+    height: 75%;
+    margin-top: 0px;
     object-fit: cover;
     border-radius: 8px;
     transition: transform 0.3s;
