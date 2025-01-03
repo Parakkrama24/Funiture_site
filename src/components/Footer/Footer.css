@@ -1,9 +1,14 @@
 .footer {
   background-color: #d6b795;
   color: #000;
-  padding: 20px 0; /* Adjust padding for better spacing */
+  padding: 20px 0;
+  /* Adjust padding for better spacing */
   text-align: center;
-  margin-top: 0;
+  width: 100%;
+  margin-top: auto;
+  /* Pushes footer to bottom */
+  position: relative;
+  bottom: 0;
 }
 
 .footer-container {
@@ -17,7 +22,8 @@
 .logo {
   width: auto;
   height: 40px;
-  margin: 20px 0; /* Adjust margin for better positioning */
+  margin: 20px 0;
+  /* Adjust margin for better positioning */
 }
 
 .footer-section {
@@ -50,20 +56,25 @@
 }
 
 .social-icons {
-  display: flex; /* Flex display for alignment */
-  justify-content: center; /* Center alignment for icons */
+  display: flex;
+  /* Flex display for alignment */
+  justify-content: center;
+  /* Center alignment for icons */
   margin-top: 15px;
 }
 
 .social-icons a {
   color: #000;
-  font-size: 24px; /* Adjust size as needed */
+  font-size: 24px;
+  /* Adjust size as needed */
   padding: 10px;
-  transition: color 0.3s; /* Smooth transition for hover effect */
+  transition: color 0.3s;
+  /* Smooth transition for hover effect */
 }
 
 .social-icons a:hover {
-  color: #555; /* Change color on hover */
+  color: #555;
+  /* Change color on hover */
 }
 
 .footer-bottom {

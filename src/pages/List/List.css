@@ -1,35 +1,135 @@
+
+.list {
+    padding: 2rem;
+    width: 100%;
+    max-width: 1200px;
+    
+    margin-left: 18vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.list > p {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+/* Table Styles */
+.list-table {
+    width: 100%;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
 .list-table-format {
-    display:grid;
-    grid-template-columns: 0.5fr 2fr 1fr 1fr 0.5fr;
+    display: grid;
+    grid-template-columns: 2fr 1fr 3fr 1fr;  /* Adjust based on your content */
+    gap: 1rem;
+    padding: 1rem;
     align-items: center;
-    gap: 10px;
-    padding: 12px 15px;
-    border: 1px solid var(--ash);
-    font-size: 13px;
-    background-color: rgba(192, 192, 192, 0.11);
+    border-bottom: 1px solid #eee;
 }
 
+/* Title Row Styles */
 .list-table-format.title {
-    font-weight: bold;
-    font-size: 13px;
-    padding: 15px;
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #dee2e6;
 }
 
-.list-table-format.title {
-    background-color: #f9f9f9;
+.list-table-format.title b {
+    font-weight: 600;
+    color: #495057;
+    font-size: 1rem;
 }
 
+/* Content Row Styles */
+.list-table-format p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #495057;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Image styles (commented out in your HTML but included for future use) */
 .list-table-format img {
     width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
 }
 
-@media (max-width: 600px) {
-    .list-table-format {
-        grid-template-columns: 1fr 3fr 1fr;
-        gap: 15px;
+/* Action button styles (commented out in your HTML but included for future use) */
+.curser {
+    cursor: pointer;
+    color: #dc3545;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.curser:hover {
+    color: #c82333;
+}
+
+/* Empty state styles */
+.list-table > p {
+    text-align: center;
+    padding: 2rem;
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .list {
+        padding: 1rem;
     }
 
-    .list-table-format.title {
-        display: none;
+    .list-table-format {
+        grid-template-columns: 1fr 1fr 2fr 1fr;
+        gap: 0.5rem;
+        padding: 0.75rem;
+        font-size: 0.9rem;
     }
+
+    .list-table-format p {
+        font-size: 0.85rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .list-table-format {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+        padding: 0.75rem;
+    }
+
+    .list-table-format.title b:nth-child(3),
+    .list-table-format.title b:nth-child(4),
+    .list-table-format p:nth-child(3),
+    .list-table-format p:nth-child(4) {
+        display: none;  /* Hide description and price on mobile */
+    }
+}
+
+/* Animation for new items (optional) */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.list-table-format {
+    animation: fadeIn 0.3s ease-out;
 }
