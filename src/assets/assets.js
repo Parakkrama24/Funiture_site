@@ -11,6 +11,11 @@ import delete1 from './delete1.png'
 import edit from './edit.png'
 import electric_kettle from './electric-kettle.png'
 import electronics from './electronics.jpg'
+import ellipse1 from './Ellipse 1.png'
+import ellipse2 from './Ellipse 2.png'
+import ellipse3 from './Ellipse 3.png'
+import ellipse4 from './Ellipse 4.png'
+import ellipse5 from './Ellipse 5.png'
 import furnitures from './furnitures.jpg'
 import google from './google.png'
 import headerImage from './headerImage.jpg'
@@ -53,7 +58,12 @@ export const assets = {
     ar_hand,
     arrow,
     delete1,
-    edit
+    edit,
+    ellipse1,
+    ellipse2,
+    ellipse3,
+    ellipse4,
+    ellipse5,
 }
 
 export const category_list=[
