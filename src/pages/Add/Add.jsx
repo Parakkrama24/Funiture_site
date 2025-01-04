@@ -3,22 +3,30 @@ import './Add.css';
 import { assets } from '../../assets/assets';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-//import {Upload3DModel}from '../../firebase/Upload3DModel.jsx'; // Import Firebase upload component
 
 const Add = ({ url }) => {
-  const [image, setImage] = useState(false); // Item image state
-  const [modelImageUrl, setModelImageUrl] = useState(""); // 3D model image URL
+  const [image, setImage] = useState(null); // Item image state
+  const [base64Image, setBase64Image] = useState('');
   const [data, setData] = useState({
-    name: "",
-    description: "",
-    price: "",
-    category: "Table"
+    name: '',
+    description: '',
+    price: '',
+    category: 'Table',
   });
+
+  function convertToBase64(e) {
+    var reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    setImage(e.target.files[0]);
+    reader.onload = () => {
+      setBase64Image(reader.result);
+    };
+  }
 
   const onChangeHandler = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    setData(data => ({ ...data, [name]: value }));
+    setData((prevData) => ({ ...prevData, [name]: value }));
   };
 
   const onSubmitHandler = async (event) => {
@@ -28,61 +36,74 @@ const Add = ({ url }) => {
       description: data.description,
       price: Number(data.price), // Ensure price is sent as a number
       category: data.category,
-      image:data.image,
-      //modelimage:modelImageUrl
-      }; // 3D model image from Firebase
+      image: base64Image, // Base64 image string
+    };
 
-    //const response = await axios.post(`${url}/api/`, formData); // Endpoint to upload product 
-    const response = await axios.post('http://localhost:5000/api/products/addProduct', itemData, {
-      withCredentials: true,  // Include cookies in the request
-    });
-    
-    if (response.data.success) {
-      setData({
-        name: "",
-        description: "",
-        price: "",
-        category: "Table"
-      });
-      setImage(false); // Reset item image
-      setModelImageUrl(""); // Reset model image URL
-      toast.success(response.data.message); // Display success message
-    } else {
-      toast.error(response.data.message); // Display error message
+    try {
+      const response = await axios.post(
+        `http://localhost:5000/api/products/addProduct`,
+        itemData,
+        { withCredentials: true }
+      );
+
+      if (response.data.success) {
+        setData({
+          name: '',
+          description: '',
+          price: '',
+          category: 'Table',
+        });
+        setImage(null); // Reset item image
+        toast.success(response.data.message); // Display success message
+      } else {
+        toast.error(response.data.message); // Display error message
+      }
+    } catch (error) {
+      console.error('Error submitting product data:', error);
+     // toast.error('Something went wrong while adding the item!');
     }
   };
 
   return (
-    <div className='add'>
-      <form className='flex-col' onSubmit={onSubmitHandler}>
+    <div className="add">
+      <form className="flex-col" onSubmit={onSubmitHandler}>
         {/* Item Image Upload */}
-        <div className='add-img-upload flex-col'>
+        <div className="add-img-upload flex-col">
           <p>Upload Item Image :</p>
-          <label htmlFor='image'>
-            <img src={image ? URL.createObjectURL(image) : assets.upload} alt='upload' />
+          <label htmlFor="image">
+            <img
+              src={image ? URL.createObjectURL(image) : assets.upload}
+              alt="upload"
+            />
           </label>
-          <input onChange={(e) => setImage(e.target.files[0])} type='file' id='image' hidden required />
+          <input
+            accept="image/*"
+            type="file"
+            onChange={convertToBase64}
+            id="image"
+            required
+          />
         </div>
 
-       {/* 3D Model Image Upload 
+        {/* 3D Model Image Upload 
         <div className='add-img-upload flex-col'>
           <p>Upload 3D Model :</p>
           <Upload3DModel setModelImageUrl={setModelImageUrl} />
         </div> */}
 
-        <div className='add-product-name flex-col'>
+        <div className="add-product-name flex-col">
           <p>Product Name :</p>
           <input
             onChange={onChangeHandler}
             value={data.name}
-            type='text'
-            name='name'
-            placeholder='Type your item name here'
+            type="text"
+            name="name"
+            placeholder="Type your item name here"
             required
           />
         </div>
 
-        <div className='add-product-description flex-col'>
+        <div className="add-product-description flex-col">
           <p>Product Description :</p>
           <textarea
             onChange={onChangeHandler}
@@ -94,36 +115,41 @@ const Add = ({ url }) => {
           ></textarea>
         </div>
 
-        <div className='add-category-price'>
-          <div className='add-category flex-col'>
+        <div className="add-category-price">
+          <div className="add-category flex-col">
             <p>Product Category :</p>
-            <select onChange={onChangeHandler} name='category'>
+            <select
+              onChange={onChangeHandler}
+              name="category"
+              value={data.category}
+              required
+            >
               <option value="Table">Table</option>
               <option value="Chair">Chair</option>
               <option value="Vas">Vas</option>
             </select>
           </div>
-          <div className='add-price flex-col'>
+          <div className="add-price flex-col">
             <p>Product Price :</p>
             <input
               onChange={onChangeHandler}
               value={data.price}
-              type='number'
-              name='price'
-              placeholder='Amount'
+              type="number"
+              name="price"
+              placeholder="Amount"
+              required
             />
             <span className="currency-label">LKR</span>
           </div>
         </div>
 
-        <button type='submit' className='add-btn'>Add Item</button>
+        <button type="submit" className="add-btn">
+          Add Item
+        </button>
       </form>
     </div>
   );
 };
-
-export default Add;
-
 
 //OLD CODE(sprint 2)
 /*import React, { useState } from 'react';
@@ -244,4 +270,6 @@ const Add = ({ url }) => {
   );
 };
 
-export default Add;*/
+export default Add;*/ 
+
+export default Add;
