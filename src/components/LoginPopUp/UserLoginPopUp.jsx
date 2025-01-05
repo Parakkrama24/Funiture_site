@@ -17,7 +17,7 @@ const UserLoginPopUp = ({ setShowLogin, setUserType,setIsLoggedIn }) => {
 
     // Password validation function
     const validatePassword = (password) => {
-        return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@!#$%^&*()_+{}[\]:;"'<>,.?/])[A-Za-z\d@!#$%^&*()_+{}[\]:;"'<>,.?/]{8,}$/.test(password);
+        return /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@!#$%^&()_+{}[\]:;"'<>,.?/])[A-Za-z\d@!#$%^&()_+{}[\]:;"'<>,.?/]{8,}$/.test(password);
     };
 
     // Sign-up logic
@@ -119,7 +119,17 @@ const UserLoginPopUp = ({ setShowLogin, setUserType,setIsLoggedIn }) => {
             <form onSubmit={checkSubmission} className="login-popup-container">
                 <div className="login-popup-title">
                     <h2>{currentState}</h2>
-                    <img onClick={() => setShowLogin(false)} src={assets.close} alt="close" />
+                    {/* <img onClick={() => setShowLogin(false)} src={assets.close} alt="close" /> */}
+                    <img 
+    onClick={() => {
+        console.log('Close button clicked');
+        setShowLogin(false);
+    }} 
+    src={assets.close} 
+    alt="close" 
+/>
+
+                   
                 </div>
                 <div className="login-popup-inputs">
                     {currentState === "Sign Up" && (
