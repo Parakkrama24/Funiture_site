@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'; 
 import './Add.css';
 import { assets } from '../../assets/assets';
 import axios from 'axios';
@@ -12,7 +12,7 @@ const Add = ({ url }) => {
     name: '',
     description: '',
     price: '',
-    category: 'Table',
+    category: '',
   });
 
   function convertToBase64(e) {
@@ -56,20 +56,17 @@ const Add = ({ url }) => {
         { withCredentials: true }
       );
   
-      console.log("Response from server:", response.data); // Debugging log
+      console.log("Response from server:", response.data); 
   
       if (response.data.success) {
-        // Reset form
         setData({
           name: '',
           description: '',
           price: '',
-          category: 'Table',
+          category: '',
         });
         setImage(null);
         setBase64Image('');
-  
-        // Show success message
         toast.success(response.data.message || "Product added successfully");
       } else {
         toast.error(response.data.message || "Failed to add product");
@@ -79,8 +76,6 @@ const Add = ({ url }) => {
       toast.error(error.response?.data?.message || 'Failed to add product');
     }
   };
-  
-  
 
   return (
     <>
@@ -149,9 +144,12 @@ const Add = ({ url }) => {
                 value={data.category}
                 required
               >
-                <option value="Table">Table</option>
-                <option value="Chair">Chair</option>
-                <option value="Vas">Vas</option>
+                <option value="">Select a category</option>
+                <option value="Furnitures">Furnitures</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Kitchen Equipments">Kitchen Equipments</option>
+                <option value="Bathwares">Bathwares</option>
+                <option value="Wall Designs">Wall Designs</option>
               </select>
             </div>
             <div className="add-price flex-col">
@@ -176,6 +174,8 @@ const Add = ({ url }) => {
     </>
   );
 };
+
+
 
 //OLD CODE(sprint 2)
 /*import React, { useState } from 'react';

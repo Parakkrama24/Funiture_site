@@ -214,7 +214,7 @@ const List = ({ url }) => {
                     <p>{item.name}</p>
                     <p>{item.category}</p>
                     <p>{item.description}</p>
-                    <p>${item.price}</p>
+                    <p>LKR.{item.price}</p>
                     <div className="action-buttons">
                       <img
                         src={assets.edit}

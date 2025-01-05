@@ -212,7 +212,7 @@ const Profile = ({ setUserType }) => {
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 onFocus={() => handleFocus(setFirstName)}  // Clears when clicked
-                placeholder='Lahiru Nisal'
+                placeholder='Type here'
               />
             </div>
             <div className="form-group">
@@ -222,7 +222,7 @@ const Profile = ({ setUserType }) => {
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
                 onFocus={() => handleFocus(setLastName)}  // Clears when clicked
-                placeholder='Wanigasooriya'
+                placeholder='Type here'
               />
             </div>
             <div className="form-group">
@@ -242,7 +242,7 @@ const Profile = ({ setUserType }) => {
                 value={addressLine1}
                 onChange={(e) => setAddressLine1(e.target.value)}
                 onFocus={() => handleFocus(setAddressLine1)}  // Clears when clicked
-                placeholder='30/6 A,'
+                placeholder='Line 1'
               />
             </div>
             <div className="form-group">
@@ -252,7 +252,7 @@ const Profile = ({ setUserType }) => {
                 value={addressLine2}
                 onChange={(e) => setAddressLine2(e.target.value)}
                 onFocus={() => handleFocus(setAddressLine2)}  // Clears when clicked
-                placeholder='Main road,'
+                placeholder='Line 2'
               />
             </div>
             <div className="form-group">
@@ -292,7 +292,7 @@ const Profile = ({ setUserType }) => {
                 value={zipCode}
                 onChange={(e) => setZipCode(e.target.value)}
                 onFocus={() => handleFocus(setZipCode)}  // Clears when clicked
-                placeholder='20000'
+                placeholder='Type here'
               />
             </div>
             <br></br>
@@ -322,7 +322,7 @@ const Profile = ({ setUserType }) => {
                   }
                 }}
                 onFocus={() => handleFocus(setContactNumber1)}  // Clears when clicked
-                placeholder='0772157278'
+                placeholder='Type here'
               />
               {error && <p className="error-message" style={{ color: 'red' }}>{error}</p>}
             </div>
@@ -341,7 +341,7 @@ const Profile = ({ setUserType }) => {
                   }
                 }}
                 onFocus={() => handleFocus(setContactNumber2)}  // Clears when clicked
-                placeholder="0773157278"
+                placeholder="Type here"
               />
               {error1 && <p className="error-message" style={{ color: 'red' }}>{error1}</p>}
             </div>

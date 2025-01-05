@@ -1,54 +1,104 @@
 import axios from 'axios';
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import { assets } from '../../assets/assets';
 import './Item.css';
 
-const Item = ({ id, name, price, description, image }) => {
-    const [quantity, setQuantity] = useState(1); // State to manage quantity
-    const [isAdded, setIsAdded] = useState(false); // State to toggle the visibility of the item counter
-    const navigate = useNavigate();
+const Item = ({ id, name, price, description, image, onCartUpdate }) => {
+    const [quantity, setQuantity] = useState(1);
+    const [isAdded, setIsAdded] = useState(false);
+    const [currentCartQuantity, setCurrentCartQuantity] = useState(0);
 
-    // Function to handle adding item to cart
-    const handleCartClick = async () => {
+    // Check if item is already in cart when component mounts
+    useEffect(() => {
+        checkCartStatus();
+    }, []);
+
+    const checkCartStatus = async () => {
         try {
-            // Send POST request to add the item to the cart with the current quantity
-            const response = await axios.post('http://localhost:5000/api/cart', {
-                productId: id,
-                quantity: quantity, 
-                price: price,
-                name: name,
-                image:image
-            }, {
-                withCredentials: true  // Send cookies with the request
+            const response = await axios.get(`http://localhost:5000/api/cart/${id}`, {
+                withCredentials: true
             });
-
-            if (response.status === 201) {
-                setIsAdded(true); // Mark the item as added to show the counter
+            if (response.data && response.data.quantity > 0) {
+                setIsAdded(true);
+                setQuantity(response.data.quantity);
+                setCurrentCartQuantity(response.data.quantity);
             }
         } catch (error) {
-            if (error.response) {
-                console.error('Error response:', error.response);
-            } else if (error.request) {
-                console.error('Error request:', error.request);
-            } else {
-                console.error('Error message:', error.message);
-            }
+            console.error('Error checking cart status:', error);
         }
     };
 
-    const incrementQuantity = () => {
-        setQuantity(quantity + 1); 
+    const addToCart = async (currentQuantity) => {
+        try {
+            const response = await axios.post('http://localhost:5000/api/cart', {
+                productId: id,
+                quantity: currentQuantity,
+                price: price,
+                name: name,
+                image: image
+            }, {
+                withCredentials: true
+            });
+
+            if (response.status === 201) {
+                setIsAdded(true);
+                setCurrentCartQuantity(currentQuantity);
+                if (onCartUpdate) {
+                    onCartUpdate(); // Update cart count in navbar
+                }
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
     };
 
-    const decrementQuantity = () => {
-        if (quantity > 1) { 
-            setQuantity(quantity - 1); 
+    const updateCart = async (newQuantity) => {
+        try {
+            const response = await axios.put(`http://localhost:5000/api/cart/${id}`, {
+                quantity: newQuantity
+            }, {
+                withCredentials: true
+            });
+
+            if (response.status === 200) {
+                setCurrentCartQuantity(newQuantity);
+                if (onCartUpdate) {
+                    onCartUpdate();
+                }
+            }
+        } catch (error) {
+            console.error('Error updating cart:', error);
+        }
+    };
+
+    const handleCartClick = () => {
+        addToCart(quantity);
+    };
+
+    const incrementQuantity = async () => {
+        const newQuantity = quantity + 1;
+        setQuantity(newQuantity);
+        if (isAdded) {
+            await updateCart(newQuantity);
+        }
+    };
+
+    const decrementQuantity = async () => {
+        if (quantity > 1) {
+            const newQuantity = quantity - 1;
+            setQuantity(newQuantity);
+            if (isAdded) {
+                await updateCart(newQuantity);
+            }
         }
     };
 
     const handleAddToCartButtonClick = () => {
-        navigate('/cart'); 
+        if (!isAdded) {
+            addToCart(quantity);
+        } else {
+            updateCart(quantity);
+        }
     };
 
     return (
@@ -59,22 +109,22 @@ const Item = ({ id, name, price, description, image }) => {
                 {!isAdded ? (
                     <img
                         className='add'
-                        onClick={handleCartClick} 
+                        onClick={handleCartClick}
                         src={assets.add}
                         alt="Add to Cart"
                     />
                 ) : (
                     <div className='item-counter'>
                         <img 
-                            onClick={decrementQuantity} 
-                            src={assets.minus_red} 
-                            alt="Remove from Cart" 
+                            onClick={decrementQuantity}
+                            src={assets.minus_red}
+                            alt="Remove from Cart"
                         />
                         <p>{quantity}</p>
                         <img 
-                            onClick={incrementQuantity} 
-                            src={assets.add_green} 
-                            alt="Add to Cart" 
+                            onClick={incrementQuantity}
+                            src={assets.add_green}
+                            alt="Add to Cart"
                         />
                     </div>
                 )}
@@ -83,7 +133,12 @@ const Item = ({ id, name, price, description, image }) => {
                 <p className='item-name'>{name}</p>
                 <p className='item-desc'>{description}</p>
                 <p className='item-price'>Rs. {price}</p>
-                <button className='item-button' onClick={handleAddToCartButtonClick}>Go to Cart</button>
+                <button 
+                    className='item-button' 
+                    onClick={handleAddToCartButtonClick}
+                >
+                    {isAdded ? 'Update Cart' : 'Add to Cart'}
+                </button>
             </div>
         </div>
     );
