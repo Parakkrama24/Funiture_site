@@ -14,10 +14,10 @@ const Orders = ({ url }) => {
         setOrders(response.data.data);
         console.log(response.data.data);
       } else {
-        toast.error("Error fetching orders");
+        //toast.error("Error fetching orders");
       }
     } catch (error) {
-      toast.error("Error occurred while fetching orders");
+      //toast.error("Error occurred while fetching orders");
       console.error(error);
     }
   };

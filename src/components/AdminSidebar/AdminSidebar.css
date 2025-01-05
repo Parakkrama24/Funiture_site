@@ -1,12 +1,13 @@
-.Adminsidebar{
+.Adminsidebar {
+    position: fixed;
+    top: 5vw;
     width: 18%;
     min-height: 100vh;
     border: 1.5px solid var(--ash);
-    border-top: 0 ;
     font-size: max(1vw, 10px);
 }
 
-.Adminsidebar-options{
+.Adminsidebar-options {
     padding-top: 50px;
     padding-left: 20%;
     display: flex;
@@ -14,11 +15,17 @@
     gap: 20px;
 }
 
-.Adminsidebar-icon{
+.Adminsidebar-option.active {
+    background-color: #f0f0f0;
+    color: #414244;
+    font-weight: bold;
+}
+
+.Adminsidebar-icon {
     width: 20%;
 }
 
-.Adminsidebar-option{
+.Adminsidebar-option {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -29,12 +36,13 @@
     cursor: pointer;
 }
 
-.Adminsidebar-option.active{
-    background-color:var(--lightbrown);
+.Adminsidebar-option.active {
+    background-color: var(--lightbrown);
     border-color: var(--darkbrown);
 }
+
 @media (max-width: 900px) {
-    .Adminsidebar-option p{
+    .Adminsidebar-option p {
         display: none;
     }
 }
