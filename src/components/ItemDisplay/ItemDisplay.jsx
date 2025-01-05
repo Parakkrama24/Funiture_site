@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
-import './ItemDisplay.css'
 import { StoreContext } from '../../context/StoreContext'
 import Item from '../Item/Item'
+import './ItemDisplay.css'
 
 const ItemDisplay = ({ category }) => {
 
@@ -9,7 +9,7 @@ const ItemDisplay = ({ category }) => {
 
     return (
         <div className='item-display' id='item-display'>
-            <h2>Top Items For You</h2>
+            {/* <h2>Top Items For You</h2> */}
             <div className="item-display-name">
                 {item_list.map((item, index) => {
                     if (category === "All" || category === item.category) {

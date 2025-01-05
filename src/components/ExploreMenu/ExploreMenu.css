@@ -6,18 +6,20 @@
 }
 
 .explore-menu {
-    margin-top: 10vw;
+    margin-top: 1000px;
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-explore-menu h1 {
+.explore-menu h1 {
     color: black;
     font-weight: 500;
+    margin-top: 100px;
 }
 
 .explore-menu-text {
+    margin-top: 10px;
     max-width: 60%;
     color: grey;
 }
@@ -65,4 +67,12 @@ explore-menu h1 {
 .explore-menu-category-item .active{
     border: 4px solid var(--green);
     padding: 2px;
+}
+
+.explore-menu-products{
+    display: flex;
+    flex-wrap: wrap; /* Allows items to wrap to the next line */
+    justify-content: left;
+    gap: 20px;
+    /* margin-top: 200px;   */
 }

@@ -10,17 +10,16 @@ const List = ({ url }) => {
 
   const fetchList = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/admin/showItem'); // Make sure to replace '/endpoint' with the correct path
-
-      if (response.data.success) {
-        setList(response.data.data); // Update the state with fetched data
-        console.log(response.data.data);    
+      const response = await axios.get('http://localhost:5000/api/products/'); // Make sure to replace '/endpoint' with the correct path
+      
+      if (response.status===200) {
+        setList(response.data); // Update the state with fetched data
       } else {
-        toast.error("Failed to fetch the list");
+        //toast.error("Failed to fetch the list");
       }
     } catch (error) {
       console.error("Error fetching list:", error);
-      toast.error("An error occurred while fetching the list");
+      //toast.error("An error occurred while fetching the list");
     }
   };
 

@@ -1,14 +1,69 @@
-.Adminnavbar{
+.Adminnavbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    padding: 1rem 1.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 4%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
 }
 
-.Adminnavbar .logo{
-    width: max(10%, 10px);
+.nav-left, .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
 }
 
-.Adminnavbar .profile{
-    width: 50px;
+.logo {
+    height: 32px;
+    width: auto;
+}
+
+.profile {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.home-button {
+    padding: 0.5rem 1rem;
+    background-color: #006d77;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease;
+}
+
+.home-button:hover {
+    background-color: #005a63;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .Adminnavbar {
+        padding: 0.75rem 1rem;
+    }
+
+    .nav-right {
+        gap: 1rem;
+    }
+
+    .home-button {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .home-button {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.75rem;
+    }
 }
