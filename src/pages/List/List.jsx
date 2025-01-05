@@ -2,18 +2,23 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import './List.css';
-import { assets } from '../../assets/assets'; // Ensure this is the correct path
+import { assets } from '../../assets/assets';
 
 const List = ({ url }) => {
-  const [list, setList] = useState([]); // Initialize state to store the list of items
+  const [list, setList] = useState([]);
+  const [editingItem, setEditingItem] = useState(null);
+  const [editFormData, setEditFormData] = useState({
+    name: '',
+    category: '',
+    description: '',
+    price: ''
+  });
 
   const fetchList = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/products/'); // Replace with your correct endpoint
+      const response = await axios.get('http://localhost:5000/api/products/');
       if (response.status === 200) {
-        setList(response.data); // Update the state with fetched data
-      } else {
-        //toast.error("Failed to fetch the list");
+        setList(response.data);
       }
     } catch (error) {
       console.error("Error fetching list:", error);
@@ -22,18 +27,62 @@ const List = ({ url }) => {
   };
 
   const removeItem = async (itemId) => {
-    console.log(itemId);
     try {
-      const response = await axios.delete(`http://localhost:5000/api/products/${itemId}`, { withCredentials: true }); // Use DELETE for deletion
+      const response = await axios.delete(`http://localhost:5000/api/products/${itemId}`, { withCredentials: true });
       if (response.data.success) {
-        //toast.success(response.data.message); // Uncomment to show a success message
-        fetchList(); // Refresh the list after successful deletion
-      } else {
-        //toast.error(response.data.message); // Uncomment to show an error message from the server
+        //toast.success("Item deleted successfully");
+        fetchList();
       }
     } catch (error) {
       console.error("Error removing item:", error);
-      //toast.error("An error occurred while removing the item"); // Uncomment to show a generic error message
+      //toast.error("An error occurred while removing the item");
+    }
+  };
+
+  const startEditing = (item) => {
+    setEditingItem(item._id);
+    setEditFormData({
+      name: item.name,
+      category: item.category,
+      description: item.description,
+      price: item.price
+    });
+  };
+
+  const handleEditChange = (e) => {
+    const { name, value } = e.target;
+    setEditFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const cancelEditing = () => {
+    setEditingItem(null);
+    setEditFormData({
+      name: '',
+      category: '',
+      description: '',
+      price: ''
+    });
+  };
+
+  const updateItem = async (itemId) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:5000/api/products/${itemId}`,
+        editFormData,
+        { withCredentials: true }
+      );
+      
+      if (response.data.success) {
+        //toast.success("Item updated successfully");
+        setEditingItem(null);
+        fetchList();
+      }
+    } catch (error) {
+      console.error("Error updating item:", error);
+      //toast.error("An error occurred while updating the item");
     }
   };
 
@@ -51,19 +100,80 @@ const List = ({ url }) => {
           <b>Category</b>
           <b>Description</b>
           <b>Price</b>
-          <b>Action</b>
+          <b>Actions</b>
         </div>
         {list.length > 0 ? (
-          list.map((item, index) => (
-            <div className="list-table-format" key={index}>
+          list.map((item) => (
+            <div className="list-table-format" key={item._id}>
               <img src={`${url}assets/items/${item.image}`} alt="item" className="item-image" />
-              <p>{item.name}</p>
-              <p>{item.category}</p>
-              <p>{item.description}</p>
-              <p>${item.price}</p>
-              {/* Use an image for delete action */}
-              <img src={assets.delete1} alt="delete" className="delete-icon"
-                onClick={() => removeItem(item._id)} />
+              
+              {editingItem === item._id ? (
+                <>
+                  <input
+                    type="text"
+                    name="name"
+                    value={editFormData.name}
+                    onChange={handleEditChange}
+                    className="edit-input"
+                  />
+                  <input
+                    type="text"
+                    name="category"
+                    value={editFormData.category}
+                    onChange={handleEditChange}
+                    className="edit-input"
+                  />
+                  <input
+                    type="text"
+                    name="description"
+                    value={editFormData.description}
+                    onChange={handleEditChange}
+                    className="edit-input"
+                  />
+                  <input
+                    type="number"
+                    name="price"
+                    value={editFormData.price}
+                    onChange={handleEditChange}
+                    className="edit-input"
+                  />
+                  <div className="action-buttons">
+                    <button 
+                      onClick={() => updateItem(item._id)}
+                      className="update-btn"
+                    >
+                      Update
+                    </button>
+                    <button 
+                      onClick={cancelEditing}
+                      className="cancel-btn"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <p>{item.name}</p>
+                  <p>{item.category}</p>
+                  <p>{item.description}</p>
+                  <p>${item.price}</p>
+                  <div className="action-buttons">
+                    <img 
+                      src={assets.edit} 
+                      alt="edit" 
+                      className="edit-icon"
+                      onClick={() => startEditing(item)} 
+                    />
+                    <img 
+                      src={assets.delete1} 
+                      alt="delete" 
+                      className="delete-icon"
+                      onClick={() => removeItem(item._id)} 
+                    />
+                  </div>
+                </>
+              )}
             </div>
           ))
         ) : (
