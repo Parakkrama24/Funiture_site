@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { assets } from '../../assets/assets.js';
 import './NavBar.css';
@@ -7,12 +7,14 @@ const NavBar = ({ setShowLogin, isLoggedIn, handleLogout }) => {
   const [menu, setMenu] = useState("home");
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
+  
 
   const handleButtonClick = () => {
     if (isLoggedIn) {
       handleLogout(); // Sign Out
     } else {
       setShowLogin(true); // Open login modal
+      // console.log(setShowLogin); 
     }
   };
 

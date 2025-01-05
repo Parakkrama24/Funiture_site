@@ -1,9 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { assets } from '../../assets/assets.js';
 import "./Cart.css";
 
 function Cart() {
+  const navigate = useNavigate();
   const [cartItems, setCartItems] = useState([]);
   const [totals, setTotals] = useState({ subTotal: 0, deliveryFee: 0, total: 0 });
 
@@ -64,7 +66,10 @@ function Cart() {
       console.error("Error removing item from cart:", error);
     }
   };
-  
+
+  const handleCheckout = () => {
+    navigate('/deliverydetailscheckout'); 
+};
   
 
   return (
@@ -138,7 +143,7 @@ function Cart() {
               </tr>
             </tbody>
           </table>
-          <button className="checkout-btn">Proceed to Checkout</button>
+          <button className="checkout-btn" onClick={handleCheckout}>Proceed to Checkout</button>
       </div>
 
         <div className="promo-code">

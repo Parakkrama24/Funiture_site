@@ -5,9 +5,11 @@ import { assets } from '../../assets/assets';
 import './Item.css';
 
 const Item = ({ id, name, price, description, image }) => {
-    const [quantity, setQuantity] = useState(1); // State to manage quantity
+    const [quantity, setQuantity] = useState(0); // State to manage quantity
     const [isAdded, setIsAdded] = useState(false); // State to toggle the visibility of the item counter
     const navigate = useNavigate();
+    const [isQuantityChanged, setIsQuantityChanged] = useState(false);
+    const [notification, setNotification] = useState(''); 
 
     // Function to handle adding item to cart
     const handleCartClick = async () => {
@@ -25,6 +27,7 @@ const Item = ({ id, name, price, description, image }) => {
 
             if (response.status === 201) {
                 setIsAdded(true); // Mark the item as added to show the counter
+                
             }
         } catch (error) {
             if (error.response) {
@@ -38,17 +41,25 @@ const Item = ({ id, name, price, description, image }) => {
     };
 
     const incrementQuantity = () => {
-        setQuantity(quantity + 1); 
+        setQuantity(quantity + 1);
+        setIsQuantityChanged(true);
+        setNotification(''); 
     };
 
     const decrementQuantity = () => {
         if (quantity > 1) { 
-            setQuantity(quantity - 1); 
+            setQuantity(quantity - 1);
+            setIsQuantityChanged(true); 
+            setNotification('');
         }
     };
 
     const handleAddToCartButtonClick = () => {
-        navigate('/cart'); 
+        if (isQuantityChanged && quantity >= 1) {
+            navigate('/cart'); 
+        } else {
+            setNotification('Adjust the quantity before proceeding.');
+        }
     };
 
     return (
@@ -83,7 +94,12 @@ const Item = ({ id, name, price, description, image }) => {
                 <p className='item-name'>{name}</p>
                 <p className='item-desc'>{description}</p>
                 <p className='item-price'>Rs. {price}</p>
-                <button className='item-button' onClick={handleAddToCartButtonClick}>Go to Cart</button>
+                <button className='item-button' onClick={handleAddToCartButtonClick}>Add to Cart</button>
+                {notification && (
+                    <p className="notification" style={{ color: 'red', marginTop: '10px' }}>
+                        {notification}
+                    </p>
+                )}
             </div>
         </div>
     );
