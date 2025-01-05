@@ -12,7 +12,8 @@ const List = ({ url }) => {
     name: '',
     category: '',
     description: '',
-    price: ''
+    price: '',
+    image: ''
   });
 
   const fetchList = async () => {
@@ -30,15 +31,11 @@ const List = ({ url }) => {
   const removeItem = async (itemId) => {
     try {
       const response = await axios.delete(
-        `http://localhost:5000/api/products/${itemId}`, 
+        `http://localhost:5000/api/products/${itemId}`,
         { withCredentials: true }
       );
-      
-      // Check the actual structure of your response
-      console.log("Delete response:", response); // For debugging
-      
-      if (response.status === 200) { // or check response.data.success based on your API
-        // Update the frontend state only after successful backend deletion
+
+      if (response.status === 200) {
         setList(prevList => prevList.filter(item => item._id !== itemId));
         toast.success("Item deleted successfully");
       } else {
@@ -56,7 +53,8 @@ const List = ({ url }) => {
       name: item.name,
       category: item.category,
       description: item.description,
-      price: item.price
+      price: item.price,
+      image: item.image
     });
   };
 
@@ -68,13 +66,28 @@ const List = ({ url }) => {
     }));
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setEditFormData(prev => ({
+          ...prev,
+          image: reader.result
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const cancelEditing = () => {
     setEditingItem(null);
     setEditFormData({
       name: '',
       category: '',
       description: '',
-      price: ''
+      price: '',
+      image: ''
     });
   };
 
@@ -85,9 +98,9 @@ const List = ({ url }) => {
         editFormData,
         { withCredentials: true }
       );
-      
+
       if (response && response.data) {
-        const updatedList = list.map(item => 
+        const updatedList = list.map(item =>
           item._id === itemId ? { ...item, ...editFormData } : item
         );
         setList(updatedList);
@@ -133,10 +146,21 @@ const List = ({ url }) => {
           {list.length > 0 ? (
             list.map((item) => (
               <div className="list-table-format" key={item._id}>
-                <img src={`${url}assets/items/${item.image}`} alt="item" className="item-image" />
-                
                 {editingItem === item._id ? (
                   <>
+                    <div className="image-upload-container">
+                      <img 
+                        src={editFormData.image || assets.placeholder} 
+                        alt="item" 
+                        className="item-image"
+                      />
+                      <input
+                        type="file"
+                        onChange={handleImageChange}
+                        accept="image/*"
+                        className="image-input"
+                      />
+                    </div>
                     <input
                       type="text"
                       name="name"
@@ -166,13 +190,13 @@ const List = ({ url }) => {
                       className="edit-input"
                     />
                     <div className="action-buttons">
-                      <button 
+                      <button
                         onClick={() => updateItem(item._id)}
                         className="update-btn"
                       >
                         Update
                       </button>
-                      <button 
+                      <button
                         onClick={cancelEditing}
                         className="cancel-btn"
                       >
@@ -182,22 +206,27 @@ const List = ({ url }) => {
                   </>
                 ) : (
                   <>
+                    <img 
+                      src={item.image || assets.placeholder} 
+                      alt="item" 
+                      className="item-image"
+                    />
                     <p>{item.name}</p>
                     <p>{item.category}</p>
                     <p>{item.description}</p>
                     <p>${item.price}</p>
                     <div className="action-buttons">
-                      <img 
-                        src={assets.edit} 
-                        alt="edit" 
+                      <img
+                        src={assets.edit}
+                        alt="edit"
                         className="edit-icon"
-                        onClick={() => startEditing(item)} 
+                        onClick={() => startEditing(item)}
                       />
-                      <img 
-                        src={assets.delete1} 
-                        alt="delete" 
+                      <img
+                        src={assets.delete1}
+                        alt="delete"
                         className="delete-icon"
-                        onClick={() => removeItem(item._id)} 
+                        onClick={() => removeItem(item._id)}
                       />
                     </div>
                   </>
