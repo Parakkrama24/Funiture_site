@@ -121,15 +121,15 @@ const UserLoginPopUp = ({ setShowLogin, setUserType,setIsLoggedIn }) => {
                     <h2>{currentState}</h2>
                     {/* <img onClick={() => setShowLogin(false)} src={assets.close} alt="close" /> */}
                     <img 
-    onClick={() => {
-        console.log('Close button clicked');
-        setShowLogin(false);
-    }} 
-    src={assets.close} 
-    alt="close" 
-/>
-
-                   
+                        onClick={() => {
+                            console.log('Close button clicked');
+                            setShowLogin(false);
+                           
+                        }} 
+                        src={assets.close} 
+                        alt="close" 
+                    />
+                    
                 </div>
                 <div className="login-popup-inputs">
                     {currentState === "Sign Up" && (

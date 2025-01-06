@@ -80,19 +80,26 @@ const App = () => {
             </>
           }
         /> */}
-     <Route
-        path="/cart"
-        element={
-          isLoggedIn ? (
-            <>
-              <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} setShowLogin={setShowLogin} />
-              <Cart />
-            </>
-          ) : (
-            <UserLoginPopUp setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} setUserType={setUserType} />
-          )
-        }
-      />
+    <Route
+  path="/cart"
+  element={
+    isLoggedIn ? (
+      <>
+        <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} setShowLogin={setShowLogin} />
+        <Cart />
+      </>
+    ) : (
+     
+        <UserLoginPopUp
+          setShowLogin={setShowLogin}
+          setIsLoggedIn={setIsLoggedIn}
+          setUserType={setUserType}
+        />
+      
+    )
+  }
+/>
+
 
 
 
