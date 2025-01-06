@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { assets } from '../../assets/assets';
 import './Item.css';
 
@@ -13,15 +13,6 @@ const Item = ({ id, name, price, description, image, onCartUpdate }) => {
     }, []);
 
     const checkCartStatus = async () => {
-const Item = ({ id, name, price, description, image }) => {
-    const [quantity, setQuantity] = useState(0); // State to manage quantity
-    const [isAdded, setIsAdded] = useState(false); // State to toggle the visibility of the item counter
-    const navigate = useNavigate();
-    const [isQuantityChanged, setIsQuantityChanged] = useState(false);
-    const [notification, setNotification] = useState(''); 
-
-    // Function to handle adding item to cart
-    const handleCartClick = async () => {
         try {
             const response = await axios.get(`http://localhost:5000/api/cart/${id}`, {
                 withCredentials: true
@@ -54,8 +45,6 @@ const Item = ({ id, name, price, description, image }) => {
                     onCartUpdate(); // Update cart count in navbar
                 }
                 hideNotification();
-                setIsAdded(true); // Mark the item as added to show the counter
-                
             }
         } catch (error) {
             console.error('Error adding to cart:', error);
@@ -92,30 +81,16 @@ const Item = ({ id, name, price, description, image }) => {
 
     const incrementQuantity = () => {
         setQuantity(prevQuantity => prevQuantity + 1); // Adjust quantity locally
-        setQuantity(quantity + 1);
-        setIsQuantityChanged(true);
-        setNotification(''); 
     };
 
     const decrementQuantity = () => {
         setQuantity(prevQuantity => (prevQuantity > 1 ? prevQuantity - 1 : prevQuantity)); // Adjust quantity locally
-        if (quantity > 1) { 
-            setQuantity(quantity - 1);
-            setIsQuantityChanged(true); 
-            setNotification('');
-        }
     };
 
     const hideNotification = () => {
         setTimeout(() => {
             setNotification('');
         }, 3000); // Hide notification after 3 seconds
-    const handleAddToCartButtonClick = () => {
-        if (isQuantityChanged && quantity >= 1) {
-            navigate('/cart'); 
-        } else {
-            setNotification('Adjust the quantity before proceeding.');
-        }
     };
 
     return (
@@ -146,12 +121,6 @@ const Item = ({ id, name, price, description, image }) => {
                 >
                     {isAdded ? 'Update Cart' : 'Add to Cart'}
                 </button>
-                <button className='item-button' onClick={handleAddToCartButtonClick}>Add to Cart</button>
-                {notification && (
-                    <p className="notification" style={{ color: 'red', marginTop: '10px' }}>
-                        {notification}
-                    </p>
-                )}
             </div>
             {notification && (
                 <div className='notification'>
