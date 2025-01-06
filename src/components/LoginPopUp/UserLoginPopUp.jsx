@@ -88,6 +88,8 @@ const UserLoginPopUp = ({ setShowLogin, setUserType,setIsLoggedIn }) => {
             const result = await axios.post('http://localhost:5000/api/users/adminauth', {
                 email: email,
                 password: password
+            }, {
+                withCredentials: true
             });
 
             if (result.status === 200) {
