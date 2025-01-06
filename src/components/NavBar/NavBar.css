@@ -88,6 +88,16 @@
   border-bottom: var(--darkbrown) 2px solid;
 }
 
+.dot {
+  position: relative;
+  top: 5px;
+  right: 5px;
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 50%;
+}
+
 /* Ensuring that all icons remain responsive */
 .navbar-right img {
   width: 24px;
@@ -222,13 +232,5 @@
   border-radius: 50%;
 }
 
-.dot {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 10px;
-  height: 10px;
-  background-color: red;
-  border-radius: 50%;
-}
+
 

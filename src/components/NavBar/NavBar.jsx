@@ -1,21 +1,27 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { assets } from '../../assets/assets.js';
 import './NavBar.css';
 
-const NavBar = ({ setShowLogin, isLoggedIn, handleLogout }) => {
+const NavBar = ({ setShowLogin, isLoggedIn, handleLogout, cartItemCount }) => {
   const [menu, setMenu] = useState("home");
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
+  const navigate = useNavigate();
   
 
   const handleButtonClick = () => {
     if (isLoggedIn) {
-      handleLogout(); // Sign Out
+      handleLogout();
     } else {
+      setShowLogin(true);
       setShowLogin(true); // Open login modal
       // console.log(setShowLogin); 
     }
+  };
+
+  const handleCartClick = () => {
+    navigate('/cart');
   };
 
   const handleProfileClick = () => {
@@ -23,12 +29,10 @@ const NavBar = ({ setShowLogin, isLoggedIn, handleLogout }) => {
   };
 
   const handleSignOut = () => {
-    console.log("Sign Out");
-    // Your sign-out logic here
-    setShowDropdown(false); // Close dropdown after sign-out
+    handleLogout();
+    setShowDropdown(false);
   };
 
-  // Close dropdown if clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -46,10 +50,18 @@ const NavBar = ({ setShowLogin, isLoggedIn, handleLogout }) => {
     <div className='navbar'>
       <img src={assets.logo_black} alt="logo" className="logo" />
       <ul className='navbar-menu'>
-        <li onClick={() => setMenu("home")} className={menu === "home" ? "active" : ""}><Link to="/">Home</Link></li>
-        <li onClick={() => setMenu("category")} className={menu === "category" ? "active" : ""}><Link to="/category">Category</Link></li>
-        <li onClick={() => setMenu("mobile-app")} className={menu === "mobile-app" ? "active" : ""}><Link to="/mobile-app">Mobile App</Link></li>
-        <li onClick={() => setMenu("about-us")} className={menu === "about-us" ? "active" : ""}><Link to="/about-us">About Us</Link></li>
+        <li onClick={() => setMenu("home")} className={menu === "home" ? "active" : ""}>
+          <Link to="/">Home</Link>
+        </li>
+        <li onClick={() => setMenu("category")} className={menu === "category" ? "active" : ""}>
+          <Link to="/category">Category</Link>
+        </li>
+        <li onClick={() => setMenu("mobile-app")} className={menu === "mobile-app" ? "active" : ""}>
+          <Link to="/mobile-app">Mobile App</Link>
+        </li>
+        <li onClick={() => setMenu("about-us")} className={menu === "about-us" ? "active" : ""}>
+          <Link to="/about-us">About Us</Link>
+        </li>
       </ul>
 
       <div className='navbar-right'>
@@ -57,9 +69,10 @@ const NavBar = ({ setShowLogin, isLoggedIn, handleLogout }) => {
           <img src={assets.profile} alt="profile" className="profile-image" />
         </div>
         <img src={assets.search} alt="search" className="search" />
-        <div className='navbar-search-icon'>
+        <div className='navbar-search-icon' onClick={handleCartClick} style={{ cursor: 'pointer' }}>
           <img src={assets.cart} alt="cart" className="cart" />
-          <div className='dot'></div>
+          {/* Show red dot only if cartItemCount > 0 */}
+          {cartItemCount > 0 && <div className="dot"></div>}
         </div>
 
         <button onClick={handleButtonClick}>
@@ -67,7 +80,6 @@ const NavBar = ({ setShowLogin, isLoggedIn, handleLogout }) => {
         </button>
       </div>
 
-      {/* Dropdown menu */}
       {showDropdown && (
         <div className="profile-dropdown" ref={dropdownRef}>
           <ul>
