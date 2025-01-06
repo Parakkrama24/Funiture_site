@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { assets } from '../../assets/assets';
 import './Item.css';
 
+
 const Item = ({ id, name, price, description, image, onCartUpdate }) => {
     const [quantity, setQuantity] = useState(1);
     const [isAdded, setIsAdded] = useState(false);

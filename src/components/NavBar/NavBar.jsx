@@ -8,15 +8,12 @@ const NavBar = ({ setShowLogin, isLoggedIn, handleLogout, cartItemCount }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
-  
 
   const handleButtonClick = () => {
     if (isLoggedIn) {
       handleLogout();
     } else {
       setShowLogin(true);
-      setShowLogin(true); // Open login modal
-      // console.log(setShowLogin); 
     }
   };
 
@@ -65,15 +62,18 @@ const NavBar = ({ setShowLogin, isLoggedIn, handleLogout, cartItemCount }) => {
       </ul>
 
       <div className='navbar-right'>
-        <div className='profile-image-container' onClick={handleProfileClick}>
-          <img src={assets.profile} alt="profile" className="profile-image" />
-        </div>
-        <img src={assets.search} alt="search" className="search" />
-        <div className='navbar-search-icon' onClick={handleCartClick} style={{ cursor: 'pointer' }}>
-          <img src={assets.cart} alt="cart" className="cart" />
-          {/* Show red dot only if cartItemCount > 0 */}
-          {cartItemCount > 0 && <div className="dot"></div>}
-        </div>
+        {isLoggedIn && (
+          <>
+            <div className='profile-image-container' onClick={handleProfileClick}>
+              <img src={assets.profile} alt="profile" className="profile-image" />
+            </div>
+            <div className='navbar-search-icon' onClick={handleCartClick} style={{ cursor: 'pointer' }}>
+              <img src={assets.cart} alt="cart" className="cart" />
+              {/* Show red dot only if cartItemCount > 0 */}
+              {cartItemCount > 0 && <div className="dot"></div>}
+            </div>
+          </>
+        )}
 
         <button onClick={handleButtonClick}>
           {isLoggedIn ? 'Sign Out' : 'Sign In'}
@@ -92,6 +92,6 @@ const NavBar = ({ setShowLogin, isLoggedIn, handleLogout, cartItemCount }) => {
       )}
     </div>
   );
-}
+};
 
 export default NavBar;
