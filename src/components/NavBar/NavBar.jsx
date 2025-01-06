@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { assets } from '../../assets/assets.js';
 import './NavBar.css';
@@ -62,15 +62,18 @@ const NavBar = ({ setShowLogin, isLoggedIn, handleLogout, cartItemCount }) => {
       </ul>
 
       <div className='navbar-right'>
-        <div className='profile-image-container' onClick={handleProfileClick}>
-          <img src={assets.profile} alt="profile" className="profile-image" />
-        </div>
-        <img src={assets.search} alt="search" className="search" />
-        <div className='navbar-search-icon' onClick={handleCartClick} style={{ cursor: 'pointer' }}>
-          <img src={assets.cart} alt="cart" className="cart" />
-          {/* Show red dot only if cartItemCount > 0 */}
-          {cartItemCount > 0 && <div className="dot"></div>}
-        </div>
+        {isLoggedIn && (
+          <>
+            <div className='profile-image-container' onClick={handleProfileClick}>
+              <img src={assets.profile} alt="profile" className="profile-image" />
+            </div>
+            <div className='navbar-search-icon' onClick={handleCartClick} style={{ cursor: 'pointer' }}>
+              <img src={assets.cart} alt="cart" className="cart" />
+              {/* Show red dot only if cartItemCount > 0 */}
+              {cartItemCount > 0 && <div className="dot"></div>}
+            </div>
+          </>
+        )}
 
         <button onClick={handleButtonClick}>
           {isLoggedIn ? 'Sign Out' : 'Sign In'}
@@ -89,6 +92,6 @@ const NavBar = ({ setShowLogin, isLoggedIn, handleLogout, cartItemCount }) => {
       )}
     </div>
   );
-}
+};
 
 export default NavBar;

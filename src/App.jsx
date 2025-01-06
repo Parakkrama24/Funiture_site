@@ -10,6 +10,7 @@ import AboutUs from './pages/AboutUs/AboutUs';
 import Add from './pages/Add/Add';
 import Cart from './pages/Cart/Cart';
 import Category from './pages/Category/Category';
+import DeliveryDetailsCheckout from './pages/DeliveryDetailsCheckout/DeliveryDetailsCheckout';
 import Home from './pages/Home/Home';
 import List from './pages/List/List';
 import Mobileapp from './pages/Mobileapp/Mobileapp';
@@ -42,13 +43,7 @@ const App = () => {
                 handleLogout={handleLogout}
                 setShowLogin={setShowLogin}
               />
-              {showLogin && (
-                <UserLoginPopUp
-                  setShowLogin={setShowLogin}
-                  setIsLoggedIn={setIsLoggedIn}
-                  setUserType={setUserType}
-                />
-              )}
+           
               <Home />
             </>
           }
@@ -59,7 +54,7 @@ const App = () => {
           path="/category"
           element={
             <>
-              <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
+              <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} setShowLogin={setShowLogin} />
               <Category />
             </>
           }
@@ -70,18 +65,50 @@ const App = () => {
           path="/mobile-app"
           element={
             <>
-              <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
+              <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout}  setShowLogin={setShowLogin} />
               <Mobileapp />
             </>
           }
         />
 
-<Route
+        {/* <Route
           path="/cart"
           element={
             <>
-              <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
+              <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout}  setShowLogin={setShowLogin} />
               <Cart />
+            </>
+          }
+        /> */}
+    <Route
+  path="/cart"
+  element={
+    isLoggedIn ? (
+      <>
+        <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} setShowLogin={setShowLogin} />
+        <Cart />
+      </>
+    ) : (
+     
+        <UserLoginPopUp
+          setShowLogin={setShowLogin}
+          setIsLoggedIn={setIsLoggedIn}
+          setUserType={setUserType}
+        />
+      
+    )
+  }
+/>
+
+
+
+
+        <Route
+          path="/deliverydetailscheckout"
+          element={
+            <>
+              <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout}  setShowLogin={setShowLogin}/>
+              <DeliveryDetailsCheckout />
             </>
           }
         />
@@ -91,7 +118,7 @@ const App = () => {
           path="/about-us"
           element={
             <>
-              <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
+              <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout}  setShowLogin={setShowLogin} />
               <AboutUs />
             </>
           }
@@ -102,7 +129,7 @@ const App = () => {
           path="/profile"
           element={
             <>
-              <NavBar isLoggedIn={true} handleLogout={handleLogout} />
+              <NavBar isLoggedIn={true} handleLogout={handleLogout}  setShowLogin={setShowLogin}/>
               <Profile />
             </>
           }
@@ -141,6 +168,13 @@ const App = () => {
           }
         />
       </Routes>
+      {showLogin && (
+        <UserLoginPopUp
+          setShowLogin={setShowLogin}
+          setIsLoggedIn={setIsLoggedIn}
+          setUserType={setUserType}
+        />
+      )}
       <Footer />
     </div>
   );
