@@ -4,13 +4,14 @@ import { useNavigate } from 'react-router-dom'; // Import navigate
 import { assets } from '../../assets/assets';
 import './UserLoginPopUp.css';
 
-const UserLoginPopUp = ({ setShowLogin, setUserType }) => {
+const UserLoginPopUp = ({ setShowLogin, setUserType,setIsLoggedIn }) => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
     const [currentState, setCurrentState] = useState("LOG IN");
+    // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const navigate = useNavigate(); // Initialize navigate
 
@@ -52,6 +53,7 @@ const UserLoginPopUp = ({ setShowLogin, setUserType }) => {
         e.preventDefault();
         setError('');
         setSuccessMessage('');
+      
 
         try {
             const result = await axios.post('http://localhost:5000/api/users/auth', {
@@ -65,6 +67,9 @@ const UserLoginPopUp = ({ setShowLogin, setUserType }) => {
                 setSuccessMessage('Logged in successfully!');
                 setUserType('user'); // Set user type to 'user'
                 setShowLogin(false); // Close the login popup
+                setIsLoggedIn(true);
+                // console.log(isLoggedIn);
+                // navigate('/cart');
             } else {
                 setError('Invalid login credentials. Please try again.');
             }
@@ -114,7 +119,17 @@ const UserLoginPopUp = ({ setShowLogin, setUserType }) => {
             <form onSubmit={checkSubmission} className="login-popup-container">
                 <div className="login-popup-title">
                     <h2>{currentState}</h2>
-                    <img onClick={() => setShowLogin(false)} src={assets.close} alt="close" />
+                    {/* <img onClick={() => setShowLogin(false)} src={assets.close} alt="close" /> */}
+                    <img 
+                        onClick={() => {
+                            console.log('Close button clicked');
+                            setShowLogin(false);
+                           
+                        }} 
+                        src={assets.close} 
+                        alt="close" 
+                    />
+                    
                 </div>
                 <div className="login-popup-inputs">
                     {currentState === "Sign Up" && (
