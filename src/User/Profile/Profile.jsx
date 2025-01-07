@@ -35,7 +35,7 @@ const Profile = ({ setUserType }) => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/users/profile', {
+        const response = await axios.get('https://new-sever.vercel.app/api/users/profile', {
           withCredentials: true,  // Send cookies with the request if needed
         });
         const userData = response.data;
@@ -120,7 +120,7 @@ const Profile = ({ setUserType }) => {
 
   const handleResetClick = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/users/profile', {
+      const response = await axios.get('https://new-sever.vercel.app/api/users/profile', {
         withCredentials: true,  
       });
       const userData = response.data;
@@ -155,7 +155,7 @@ const Profile = ({ setUserType }) => {
 
 
     try {
-      const result = await axios.put('http://localhost:5000/api/users/profile', {
+      const result = await axios.put('https://new-sever.vercel.app/api/users/profile', {
         name: userName,
         email: email,
         firstName: firstName,

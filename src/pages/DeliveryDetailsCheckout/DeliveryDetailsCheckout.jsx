@@ -26,7 +26,7 @@ function DeliveryDetailsCheckout({ cartTotals }) {
 
   const handleCheckout = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/api/checkout", {
+      const response = await axios.post("https://new-sever.vercel.app/api/checkout", {
         deliveryDetails,
         totals: cartTotals,
       });
