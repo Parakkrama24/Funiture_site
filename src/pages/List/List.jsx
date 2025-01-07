@@ -18,7 +18,7 @@ const List = ({ url }) => {
 
   const fetchList = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/products/');
+      const response = await axios.get('https://new-sever.vercel.app/api/products/');
       if (response.status === 200) {
         setList(response.data);
       }
@@ -31,7 +31,7 @@ const List = ({ url }) => {
   const removeItem = async (itemId) => {
     try {
       const response = await axios.delete(
-        `http://localhost:5000/api/products/${itemId}`,
+        `https://funiture-site.vercel.app/api/products/${itemId}`,
         { withCredentials: true }
       );
 
@@ -94,7 +94,7 @@ const List = ({ url }) => {
   const updateItem = async (itemId) => {
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/products/${itemId}`,
+        `https://new-sever.vercel.app/api/products/${itemId}`,
         editFormData,
         { withCredentials: true }
       );

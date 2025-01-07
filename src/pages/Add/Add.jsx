@@ -51,7 +51,7 @@ const Add = ({ url }) => {
   
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/products/addProduct`,
+        `https://funiture-site.vercel.app/addProduct`,
         itemData,
         { withCredentials: true }
       );

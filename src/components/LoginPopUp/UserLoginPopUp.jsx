@@ -31,7 +31,7 @@ const UserLoginPopUp = ({ setShowLogin, setUserType }) => {
         }
 
         try {
-            await axios.post('http://localhost:5000/api/users/', {
+            await axios.post('https://funiture-site.vercel.app/api/users/', {
                 name: username,
                 email: email,
                 password: password
@@ -54,7 +54,7 @@ const UserLoginPopUp = ({ setShowLogin, setUserType }) => {
         setSuccessMessage('');
 
         try {
-            const result = await axios.post('http://localhost:5000/api/users/auth', {
+            const result = await axios.post('https://funiture-site.vercel.app/api/users/auth', {
                 email: email,
                 password: password
             }, {
@@ -80,7 +80,7 @@ const UserLoginPopUp = ({ setShowLogin, setUserType }) => {
         setSuccessMessage('');
 
         try {
-            const result = await axios.post('http://localhost:5000/api/users/adminauth', {
+            const result = await axios.post('https://funiture-site.vercel.app/api/users/adminauth', {
                 email: email,
                 password: password
             });
