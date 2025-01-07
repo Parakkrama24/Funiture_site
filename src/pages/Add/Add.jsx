@@ -58,7 +58,7 @@ const Add = ({ url }) => {
 
     try { 
       const response = await axios.post( 
-        `http://localhost:5000/api/products/addProduct`, 
+        `https://new-sever.vercel.app/api/products/addProduct`, 
         itemData, 
         { withCredentials: true } 
       ); 
