@@ -35,54 +35,8 @@ const Add = ({ url }) => {
     setData((prevData) => ({ ...prevData, [name]: value })); 
   }; 
 
-
-  const onSubmitHandler = async (event) => {
-    event.preventDefault();
-  
-    if (!image) {
-      toast.error("Please select an image");
-      return;
-    }
-  
-    const itemData = {
-      name: data.name,
-      description: data.description,
-      price: Number(data.price),
-      category: data.category,
-      image: base64Image,
-    };
-  
-    try {
-      const response = await axios.post(
-        `https://funiture-site.vercel.app/addProduct`,
-        itemData,
-        { withCredentials: true }
-      );
-  
-      console.log("Response from server:", response.data); // Debugging log
-  
-      if (response.data.success) {
-        // Reset form
-        setData({
-          name: '',
-          description: '',
-          price: '',
-          category: 'Table',
-        });
-        setImage(null);
-        setBase64Image('');
-  
-        // Show success message
-        toast.success(response.data.message || "Product added successfully");
-      } else {
-        toast.error(response.data.message || "Failed to add product");
-      }
-    } catch (error) {
-      console.error('Error submitting product data:', error);
-      toast.error(error.response?.data?.message || 'Failed to add product');
-    }
-  };
-
+  const onSubmitHandler = async (event) => { 
+    event.preventDefault(); 
 
     if (!image) { 
       toast.error("Please select an image"); 
