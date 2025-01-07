@@ -1,20 +1,17 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { assets } from '../../assets/assets';
-import Item from '../Item/Item';
-import './ExploreMenu.css';
-
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { assets } from "../../assets/assets";
+import Item from "../Item/Item";
+import "./ExploreMenu.css";
 
 const ExploreMenu = ({ category, setCategory }) => {
     const [products, setProducts] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState([]);
-    const [selectedCategory, setSelectedCategory] = useState("All");
 
     // Hardcoded categories with images
     const categories = [
-        // { name: "Furnitures", image: "./../../assets/Ellipse 1.png" },
         { name: "Furnitures", image: assets.ellipse1 },
-        { name: "Electronics", image: assets.ellipse2},
+        { name: "Electronics", image: assets.ellipse2 },
         { name: "Kitchen Equipments", image: assets.ellipse3 },
         { name: "Bathwares", image: assets.ellipse4 },
         { name: "Wall Designs", image: assets.ellipse5 },
@@ -36,41 +33,42 @@ const ExploreMenu = ({ category, setCategory }) => {
         fetchProducts();
     }, []);
 
-    // Filter products when a category is clicked
-    const handleCategoryClick = (category) => {
-        if (selectedCategory === category) {
-            // If the clicked category is already selected, show all products
-            setSelectedCategory("All");
+    // Handle category selection
+    const handleCategoryClick = (selectedCategory) => {
+        if (category === selectedCategory) {
+            // If clicked category is already active, reset to "All"
+            setCategory("All");
             setFilteredProducts(products);
         } else {
-            // Otherwise, filter products by the selected category
-            setSelectedCategory(category);
+            // Otherwise, filter by the selected category
+            setCategory(selectedCategory);
             setFilteredProducts(
-                products.filter((product) => product.category === category)
+                products.filter((product) => product.category === selectedCategory)
             );
         }
     };
 
     return (
-        <div className='explore-menu' id='explore-menu'>
+        <div className="explore-menu" id="explore-menu">
             <hr />
             <h1>Explore Our Collection</h1>
-            <p className='explore-menu-text'>
+            <p className="explore-menu-text">
                 Browse our curated selection of furniture and home equipment, designed to blend style with functionality. Use our augmented reality feature to visualize each piece in your home, ensuring the perfect fit for your space and style preferences.
             </p>
 
             {/* Categories */}
-            <div className='explore-menu-categories'>
+            <div className="explore-menu-categories">
                 {categories.map((cat, index) => (
                     <div
                         key={index}
-                        className={`explore-menu-category-item ${category === cat.name ? "active" : ""}`}
+                        className={`explore-menu-category-item ${
+                            category === cat.name ? "active" : ""
+                        }`}
                         onClick={() => handleCategoryClick(cat.name)}
                     >
                         <img
                             src={cat.image}
                             alt={cat.name}
-                            className={category === cat.name ? "active" : ""}
                         />
                         <p>{cat.name}</p>
                     </div>
@@ -100,4 +98,3 @@ const ExploreMenu = ({ category, setCategory }) => {
 };
 
 export default ExploreMenu;
-
