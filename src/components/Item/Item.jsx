@@ -15,7 +15,7 @@ const Item = ({ id, name, price, description, image, onCartUpdate }) => {
 
     const checkCartStatus = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/api/cart/${id}`, {
+            const response = await axios.get(`https://new-sever.vercel.app/api/cart/${id}`, {
                 withCredentials: true
             });
             if (response.data && response.data.quantity > 0) {
@@ -29,7 +29,7 @@ const Item = ({ id, name, price, description, image, onCartUpdate }) => {
 
     const addToCart = async () => {
         try {
-            const response = await axios.post('http://localhost:5000/api/cart', {
+            const response = await axios.post('https://new-sever.vercel.app/api/cart', {
                 productId: id,
                 quantity: quantity,
                 price: price,
@@ -54,7 +54,7 @@ const Item = ({ id, name, price, description, image, onCartUpdate }) => {
 
     const updateCart = async () => {
         try {
-            const response = await axios.put(`http://localhost:5000/api/cart/${id}`, {
+            const response = await axios.put(`https://new-sever.vercel.app/api/cart/${id}`, {
                 quantity: quantity
             }, {
                 withCredentials: true
