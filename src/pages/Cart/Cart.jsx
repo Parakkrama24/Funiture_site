@@ -42,6 +42,7 @@ function Cart() {
   }, []);
 
   const handleRemoveItem = async (productId) => {
+    console.log(productId);
     try {
       // Send DELETE request to remove the item from the cart
       const response = await axios.delete(`http://localhost:5000/api/cart/${productId}`, {
