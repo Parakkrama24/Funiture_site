@@ -10,6 +10,7 @@ import { storage } from '../../firebase/firebaseConfig';
 
 const Add = ({ url }) => { 
   const [image, setImage] = useState(null); 
+  const [imageUrl, setImageUrl] = useState(null); 
   const [base64Image, setBase64Image] = useState(''); 
   const [data, setData] = useState({ 
     name: '', 
@@ -49,7 +50,7 @@ const Add = ({ url }) => {
     try {
       await uploadBytes(storageRef, image); // Upload image to Firebase Storage
       const url = await getDownloadURL(storageRef); // Get image download URL
-      console.log(url);
+      setImageUrl(url);
     } catch (error) {
       console.error("Error uploading image:", error);
       toast.error("Failed to upload image.");
@@ -67,6 +68,7 @@ const Add = ({ url }) => {
       price: Number(data.price), 
       category: data.category, 
       image: base64Image, 
+      imageUrl: imageUrl,
       modelImageUrl: data.modelImageUrl, // Include the 3D model URL 
     }; 
 
