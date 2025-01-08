@@ -1,6 +1,7 @@
 // src/firebase.js
 import { initializeApp } from "firebase/app";
 import { getStorage } from "firebase/storage";
+import { getFirestore } from "firebase/firestore";
 
 // Replace with your actual Firebase config object from Firebase Console
 const firebaseConfig = {
@@ -13,10 +14,8 @@ const firebaseConfig = {
   measurementId: "G-L85LF5JSP9"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
-// Initialize Firebase Storage
 const storage = getStorage(app);
+const db = getFirestore(app);
 
-export { storage };
+export { storage, db };
