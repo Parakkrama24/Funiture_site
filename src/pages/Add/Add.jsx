@@ -4,7 +4,7 @@ import { assets } from '../../assets/assets';
 import axios from 'axios'; 
 import { ToastContainer, toast } from 'react-toastify'; 
 import 'react-toastify/dist/ReactToastify.css'; 
-import Upload3DModel from '../../firebase/Upload3DModel'; 
+import Upload3DModel from '../../FireBase/Upload3DModel'; // Import Firebase upload component
 
 const Add = ({ url }) => { 
   const [image, setImage] = useState(null); 
@@ -102,7 +102,7 @@ const Add = ({ url }) => {
 
       <div className="add"> 
         <form className="flex-col" onSubmit={onSubmitHandler}> 
-          <div className="add-img-upload flex-col"> 
+          <div className="flex-col add-img-upload"> 
             <p>Upload Item Image :</p> 
             <label htmlFor="image"> 
               <img 
@@ -119,14 +119,14 @@ const Add = ({ url }) => {
             /> 
           </div> 
 
-          <div className='add-img-upload flex-col'> 
+          <div className='flex-col add-img-upload'> 
             <p>Upload 3D Model :</p> 
             <Upload3DModel 
               setModelImageUrl={(url) => setData((prevData) => ({ ...prevData, modelImageUrl: url }))} 
             /> 
           </div> 
 
-          <div className="add-product-name flex-col"> 
+          <div className="flex-col add-product-name"> 
             <p>Product Name :</p> 
             <input 
               onChange={onChangeHandler} 
@@ -138,7 +138,7 @@ const Add = ({ url }) => {
             /> 
           </div> 
 
-          <div className="add-product-description flex-col"> 
+          <div className="flex-col add-product-description"> 
             <p>Product Description :</p> 
             <textarea 
               onChange={onChangeHandler} 
@@ -151,7 +151,7 @@ const Add = ({ url }) => {
           </div> 
 
           <div className="add-category-price"> 
-            <div className="add-category flex-col"> 
+            <div className="flex-col add-category"> 
               <p>Product Category :</p> 
               <select 
                 onChange={onChangeHandler} 
@@ -167,7 +167,7 @@ const Add = ({ url }) => {
                 <option value="Wall Designs">Wall Designs</option> 
               </select> 
             </div> 
-            <div className="add-price flex-col"> 
+            <div className="flex-col add-price"> 
               <p>Product Price :</p> 
               <input 
                 onChange={onChangeHandler} 
@@ -245,7 +245,7 @@ const Add = ({ url }) => {
   return (
     <div className='add'>
       <form className='flex-col' onSubmit={onSubmitHandler}>
-        <div className='add-img-upload flex-col'>
+        <div className='flex-col add-img-upload'>
           <p>Upload Item Image :</p>
           <label htmlFor='image'>
             <img src={image ? URL.createObjectURL(image) : assets.upload} alt='upload' />
@@ -254,12 +254,12 @@ const Add = ({ url }) => {
         </div>
 
      
-        <div className='add-img-upload flex-col'>
+        <div className='flex-col add-img-upload'>
           <p>Upload 3D Model :</p>
           <Upload3DModel setModelImageUrl={setModelImageUrl} />
         </div>
 
-        <div className='add-product-name flex-col'>
+        <div className='flex-col add-product-name'>
           <p>Product Name :</p>
           <input
             onChange={onChangeHandler}
@@ -271,7 +271,7 @@ const Add = ({ url }) => {
           />
         </div>
 
-        <div className='add-product-description flex-col'>
+        <div className='flex-col add-product-description'>
           <p>Product Description :</p>
           <textarea
             onChange={onChangeHandler}
@@ -284,7 +284,7 @@ const Add = ({ url }) => {
         </div>
 
         <div className='add-category-price'>
-          <div className='add-category flex-col'>
+          <div className='flex-col add-category'>
             <p>Product Category :</p>
             <select onChange={onChangeHandler} name='category'>
               <option value="Table">Table</option>
@@ -292,7 +292,7 @@ const Add = ({ url }) => {
               <option value="Vas">Vas</option>
             </select>
           </div>
-          <div className='add-price flex-col'>
+          <div className='flex-col add-price'>
             <p>Product Price :</p>
             <input
               onChange={onChangeHandler}
