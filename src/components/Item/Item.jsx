@@ -32,9 +32,6 @@ const Item = ({ id, name, price, description, image, onCartUpdate }) => {
             const response = await axios.post('http://localhost:5000/api/cart', {
                 productId: id,
                 quantity: quantity,
-                price: price,
-                name: name,
-                image: image
             }, {
                 withCredentials: true
             });

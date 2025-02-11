@@ -5,6 +5,8 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify'; 
 import 'react-toastify/dist/ReactToastify.css'; 
 import Upload3DModel from '../../firebase/Upload3DModel'; 
+import {ref,uploadBytes,getDownloadURL} from 'firebase/storage';
+import { storage } from '../../firebase/firebaseConfig';
 
 const Add = ({ url }) => { 
   const [image, setImage] = useState(null); 
@@ -46,6 +48,17 @@ const Add = ({ url }) => {
       toast.error("Please upload a 3D model"); 
       return; 
     } 
+
+    const storageRef = ref(storage, `images/${image.name}`);
+    try {
+      await uploadBytes(storageRef, image); // Upload image to Firebase Storage
+      const url = await getDownloadURL(storageRef); // Get image download URL
+      console.log(url);
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      toast.error("Failed to upload image.");
+      
+    }
 
     const itemData = { 
       name: data.name, 
