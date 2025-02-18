@@ -1,12 +1,12 @@
-import React, { useState } from 'react'; 
-import './Add.css'; 
-import { assets } from '../../assets/assets'; 
-import axios from 'axios'; 
-import { ToastContainer, toast } from 'react-toastify'; 
-import 'react-toastify/dist/ReactToastify.css'; 
-import Upload3DModel from '../../firebase/Upload3DModel'; 
-import {ref,uploadBytes,getDownloadURL} from 'firebase/storage';
-import { storage } from '../../FireBase/firebaseConfig';
+import axios from 'axios';
+import React, { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { assets } from '../../assets/assets';
+import './Add.css';
+// import Upload3DModel from '../../firebase/Upload3DModel'; 
+// import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+// import { storage } from '../../FireBase/firebaseConfig';
 
 const Add = ({ url }) => { 
   const [image, setImage] = useState(null); 
