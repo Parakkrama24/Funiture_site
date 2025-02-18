@@ -1,9 +1,12 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useLocation } from 'react-router-dom';
 import "./DeliveryDetailsCheckout.css";
 
-function DeliveryDetailsCheckout({ cartTotals }) {
-  
+function DeliveryDetailsCheckout() {
+  const location = useLocation();
+  const cartTotals = location.state?.cartTotals || { subTotal: 0, deliveryFee: 500, total: 0 };
+
   const [deliveryDetails, setDeliveryDetails] = useState({
     firstName: "",
     lastName: "",
@@ -116,28 +119,44 @@ function DeliveryDetailsCheckout({ cartTotals }) {
         </form>
       </div>
 
-      {/* <div className="cart-totals-section">
-        <h3>CART TOTALS</h3>
-        <table>
-          <tbody>
-            <tr>
-              <td>Sub Total</td>
-              <td>Rs. {cartTotals.subTotal.toLocaleString()}</td>
-            </tr>
-            <tr>
-              <td>Delivery fee</td>
-              <td>Rs. {cartTotals.deliveryFee.toLocaleString()}</td>
-            </tr>
-            <tr>
-              <td>Total</td>
-              <td>Rs. {cartTotals.total.toLocaleString()}</td>
-            </tr>
-          </tbody>
-        </table>
-        <button className="checkout-btn" onClick={handleCheckout}>
-          Proceed to Checkout
-        </button>
-      </div> */}
+      <div className="place-order-right">
+        <div className="cart-total-delivery">
+          <h3>CART TOTALS</h3>
+          <div className="cart-totals-with-promo-delivery">
+            <div className="cart-totals-delivery">
+              <table>
+                <tbody>
+                  <tr>
+                    <td>Sub Total</td>
+                    <td className="td1">Rs. {cartTotals.subTotal.toLocaleString()}</td>
+                  </tr>
+                  <tr>
+                    <td>Delivery fee</td>
+                    <td className="td1">Rs. {cartTotals.deliveryFee.toLocaleString()}</td>
+                  </tr>
+                  <tr>
+                    <td>Total</td>
+                    <td className="td1">Rs. {cartTotals.total.toLocaleString()}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <button className="checkout-btn-delivery" onClick={handleCheckout}>
+                Proceed to Payment
+              </button>
+            </div>
+
+            <div className="promo-code">
+              <p>
+                If you have a promo code <a href="/cart">ENTER IT HERE</a>
+              </p>
+              <div>
+                <input type="text" placeholder="Promo Code" />
+                <button className="btn-submit">Submit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

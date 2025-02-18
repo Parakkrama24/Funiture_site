@@ -68,7 +68,7 @@ function Cart() {
   };
 
   const handleCheckout = () => {
-    navigate('/deliverydetailscheckout'); 
+    navigate('/deliverydetailscheckout', { state: { cartTotals: totals } }); 
 };
   
 
