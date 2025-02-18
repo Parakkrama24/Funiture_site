@@ -1,5 +1,6 @@
 import React from 'react';
 import './Mobileapp.css';
+import { assets } from '../../assets/assets';
 
 const Mobileapp = () => {
   const features = [
@@ -48,6 +49,19 @@ const Mobileapp = () => {
     <div>
       {/* Hero Section */}
       <section className="hero-section">
+        <div className="hero-video-container">
+          <video
+            className="hero-video"
+            autoPlay
+            muted
+            loop
+            playsInline
+          >
+            <source src={assets.herovideo} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <div className="hero-overlay"></div>
         <div className="hero-content">
           <h1 className="hero-title">
             Design Your Space in Augmented Reality
@@ -61,11 +75,6 @@ const Mobileapp = () => {
             <span>→</span>
           </button>
         </div>
-        <img
-          src="/path-to-your-image.jpg"
-          alt="Mobile app preview"
-          className="hero-image"
-        />
       </section>
 
       {/* Features Section */}
@@ -108,12 +117,12 @@ const Mobileapp = () => {
               Experience true-to-size 3D models with accurate colors and textures.
             </p>
             <div className="store-buttons">
-              <img src="/path-to-appstore.png" alt="App Store" className="store-button" />
-              <img src="/path-to-playstore.png" alt="Google Play" className="store-button" />
+              <img src={assets.appstore} alt="App Store" className="store-button" />
+              <img src={assets.playstore} alt="Google Play" className="store-button" />
             </div>
           </div>
           <img
-            src="/path-to-preview.jpg"
+            src={assets.mobile}
             alt="App preview"
             className="preview-image"
           />
@@ -121,18 +130,40 @@ const Mobileapp = () => {
       </section>
 
       {/* Categories Section */}
+
       <section className="categories-section">
         <h2 className="section-title">Explore Categories</h2>
         <div className="categories-grid">
-          {['Electronics', 'Furniture', 'Wall Art', 'Bathware'].map((category, index) => (
+          {[
+            {
+              name: 'Furnitures',
+              image: assets.furnitures
+            },
+            {
+              name: 'Bathwares',
+              image: assets.bathware2
+            },
+            {
+              name: 'Kitchenwares',
+              image: assets.kitchen2
+            },
+            {
+              name: 'Wall Arts',
+              image: assets.wallart2
+            },
+            {
+              name: 'Electronics',
+              image: assets.electronics
+            }
+          ].map((category, index) => (
             <div key={index} className="category-item">
               <img
-                src={`/path-to-${category.toLowerCase()}.jpg`}
-                alt={category}
+                src={category.image}
+                alt={category.name}
                 className="category-image"
               />
               <div className="category-overlay">
-                <span className="category-title">{category}</span>
+                <span className="category-title">{category.name}</span>
               </div>
             </div>
           ))}

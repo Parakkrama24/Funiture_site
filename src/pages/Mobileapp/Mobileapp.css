@@ -1,19 +1,47 @@
 /* Mobile App Page Styles */
 
-/* Hero Section */
+/* Hero Section with Video Background */
 .hero-section {
     position: relative;
-    margin-top: 8vw;
     height: 600px;
-    background-color: #2563eb;
     overflow: hidden;
-}
-
-.hero-content {
+    margin-top: 8vw;
+  }
+  
+  .hero-video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+  
+  .hero-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* Dark overlay for better text readability */
+    z-index: 1;
+  }
+  
+  .hero-content {
+    position: relative;
+    z-index: 2;
     max-width: 800px;
     padding: 60px 20px;
     color: white;
-}
+    margin-left: 100px;
+    margin-right: 100px;
+  }
 
 .hero-title {
     font-size: 48px;
@@ -32,18 +60,22 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background-color: white;
-    color: #2563eb;
     padding: 12px 32px;
-    border-radius: 8px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s ease;
+    background-color: var(--green); /* Adjust to your theme color */
+    color: white;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
 }
 
 .download-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: white; 
+    color: rgb(0, 0, 0);
+    border: none;
+    transition: 0.5s;
 }
 
 .hero-image {
@@ -94,6 +126,7 @@
 .feature-title {
     font-size: 20px;
     font-weight: 600;
+    color: var(--darkbrown);
     margin-bottom: 8px;
 }
 
@@ -132,6 +165,7 @@
     font-size: 20px;
     font-weight: 600;
     margin-bottom: 8px;
+    
 }
 
 .step-description {
@@ -182,6 +216,7 @@
 .preview-image {
     flex: 1;
     border-radius: 12px;
+    width: 20%;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 }
 
@@ -267,3 +302,14 @@
         margin-top: 32px;
     }
 }
+
+/* Mobile Responsiveness for Video */
+@media (max-width: 767px) {
+    .hero-section {
+      height: 500px;
+    }
+    
+    .hero-title {
+      font-size: 36px;
+    }
+  }
