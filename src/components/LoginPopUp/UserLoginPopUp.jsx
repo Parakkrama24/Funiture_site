@@ -32,10 +32,12 @@ const UserLoginPopUp = ({ setShowLogin, setUserType,setIsLoggedIn }) => {
         }
 
         try {
+            console.log("log 1");
             await axios.post('https://new-sever.vercel.app/api/users/', {
                 name: username,
                 email: email,
                 password: password
+                
             });
 
             setSuccessMessage('Account created successfully!');
