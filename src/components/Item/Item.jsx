@@ -2,12 +2,13 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { assets } from '../../assets/assets';
 import './Item.css';
-
+import { useNavigate } from 'react-router-dom';
 
 const Item = ({ id, name, price, description, image, onCartUpdate }) => {
     const [quantity, setQuantity] = useState(1);
     const [isAdded, setIsAdded] = useState(false);
     const [notification, setNotification] = useState(''); // Notification message state
+    const Navigate =useNavigate();
 
     {/* useEffect(() => {
         checkCartStatus();
@@ -94,9 +95,14 @@ const Item = ({ id, name, price, description, image, onCartUpdate }) => {
         }, 3000); // Hide notification after 3 seconds
     };
 
+    const itemDetailPageNavigation = () => {
+    
+        Navigate(`/Item-Page/${id}`);
+    };
+
     return (
         <div className='item'>
-            <div className="item-img-container">
+            <div className="item-img-container" onClick={itemDetailPageNavigation}>
                 <img className='item-img' src={image} alt={name} />
                 <div className='item-counter'>
                     <img 
