@@ -94,7 +94,8 @@ const Item = ({ id, name, price, description, image, onCartUpdate,rating,reviews
     };
 
     const itemDetailPageNavigation = () => {
-        Navigate("/Item-Page", { state: { id, name, price, description, image } });
+    
+        Navigate(`/Item-Page/${id}`);
     };
 
     return (

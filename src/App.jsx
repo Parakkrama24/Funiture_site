@@ -74,7 +74,7 @@ const App = () => {
             </>
           }
         />
-        <Route path='/Item-Page'
+        <Route path='/Item-Page/:id'
         element={ <>
         <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} setShowLogin={setIsLoggedIn}/>
         <ItemDetailsPage/>
