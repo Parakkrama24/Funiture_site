@@ -8,6 +8,8 @@ import { storage } from '../../firebase/firebaseConfig';
 import Upload3DModel from '../../firebase/Upload3DModel';
 import './Add.css';
 
+const token = localStorage.getItem('token'); // Retrieve token from local storage (or your preferred method)
+
 const Add = ({ url }) => { 
   const [image, setImage] = useState(null); 
   const [base64Image, setBase64Image] = useState(''); 
@@ -73,7 +75,13 @@ const Add = ({ url }) => {
       const response = await axios.post( 
         `https://new-sever.vercel.app/api/products/addProduct`, 
         itemData, 
-        { withCredentials: true } 
+        { 
+          headers: {
+            Authorization: `Bearer ${token}`, // Attach token
+            'Content-Type': 'application/json' 
+          },
+          withCredentials: true 
+        } 
       ); 
 
       console.log("Response from server:", response.data);  
