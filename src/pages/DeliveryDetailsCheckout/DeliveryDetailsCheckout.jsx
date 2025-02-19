@@ -29,7 +29,7 @@ function DeliveryDetailsCheckout() {
     setDeliveryDetails((prevDetails) => ({ ...prevDetails, [name]: value }));
   };
 
-  const handleCheckout = (e) => {
+  const handleCheckout = async (e) => {
     e.preventDefault();
 
     let deliveryDetailsCheckout = receivedCartItems.map((item) => ({
@@ -38,11 +38,10 @@ function DeliveryDetailsCheckout() {
     }));
 
     let orderData = {
-      address: deliveryDetails,
-      items: deliveryDetailsCheckout,
-      total: cartTotals.total,
-      status: "Item Preparing",
-      createdAt: new Date().toISOString(),
+      orderItems: deliveryDetailsCheckout, 
+      shippingAddress: deliveryDetails,
+      paymentMethod: "Cash on Delivery",
+      totalPrice: cartTotals.total,
     };
 
     // ✅ Save the order data to localStorage
@@ -52,6 +51,20 @@ function DeliveryDetailsCheckout() {
     navigate('/paymentSuccess', { state: { orderData } });
     console.log('Delivery Details:', deliveryDetailsCheckout);
     console.log('Order Details:', orderData);
+    
+    try {
+      let response = await axios.post("http://localhost:5000/api/order", orderData, { withCredentials: true } );
+      
+      if (response.status === 200 && response.data.success) {
+        alert("Order successfully placed!");
+      } else {
+        alert("Error processing your order");
+      }
+    } catch (error) {
+      console.error("Checkout Error:", error);
+      alert("Something went wrong. Please try again.");
+    }
+    
 
     {/*After creating Stripe Process uncomment this*/ }
     {/*  e.preventDefault();

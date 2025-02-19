@@ -5,7 +5,7 @@ import { ChevronRight } from 'lucide-react';
 import { assets } from '../../assets/assets';
 import './MyOrders.css';
 
-const MyOrders = ({ url }) => {
+const MyOrders = ({ }) => {
   const [orders, setOrders] = useState({
     ongoing: [],
     previous: []
@@ -16,24 +16,55 @@ const MyOrders = ({ url }) => {
     try {
       const token = localStorage.getItem('token');
       setLoading(true);
-      
-      const response = await axios.get(url + "/api/my-orders", {
-        headers: { token }
+  
+      const response = await axios.get("http://localhost:5000/api/order", {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       });
-      
-      if (response.data.success) {
-        // Separate orders into ongoing and previous
-        const ongoing = response.data.data.filter(order => 
-          ['Item Preparing', 'Packing', 'Out for Delivery'].includes(order.status)
-        );
-        const previous = response.data.data.filter(order => 
-          order.status === 'Delivered'
-        );
+  
+      let fetchedOrders = response.data.success ? response.data.data : [];
+  
+      // Get latest order from localStorage with your data structure
+      const latestOrderString = localStorage.getItem("latestOrder");
+      if (latestOrderString) {
+        const latestOrder = JSON.parse(latestOrderString);
         
-        setOrders({ ongoing, previous });
-      } else {
-        toast.error("Error fetching your orders");
+        // Structure the latest order to match the format needed for display
+        const formattedLatestOrder = {
+          items: latestOrder.orderItems.map(item => ({
+            name: item.name,
+            quantity: item.quantity
+          })),
+          amount: latestOrder.totalPrice,
+          status: "Item Preparing",
+          shippingAddress: latestOrder.shippingAddress,
+          paymentMethod: latestOrder.paymentMethod,
+          createdAt: new Date().toISOString()
+        };
+  
+        // Add to fetched orders if not already present
+        const orderExists = fetchedOrders.some(order => 
+          order.amount === formattedLatestOrder.amount && 
+          order.shippingAddress.email === formattedLatestOrder.shippingAddress.email
+        );
+  
+        if (!orderExists) {
+          fetchedOrders.push(formattedLatestOrder);
+        }
       }
+  
+      // Separate orders into ongoing and previous
+      const ongoing = fetchedOrders.filter(order =>
+        ['Item Preparing', 'Packing', 'Out for Delivery'].includes(order.status)
+      );
+      
+      const previous = fetchedOrders.filter(order =>
+        order.status === 'Delivered'
+      );
+  
+      setOrders({ ongoing, previous });
     } catch (error) {
       toast.error("Error occurred while fetching orders");
       console.error(error);
@@ -43,43 +74,8 @@ const MyOrders = ({ url }) => {
   };
 
   useEffect(() => {
-    const fetchMyOrders = async () => {
-        try {
-            const token = localStorage.getItem('token');
-            setLoading(true);
-
-            const response = await axios.get(url + "/api/my-orders", {
-                headers: { token }
-            });
-
-            let fetchedOrders = response.data.success ? response.data.data : [];
-
-            // ✅ Retrieve latest order from localStorage
-            const latestOrder = JSON.parse(localStorage.getItem("latestOrder"));
-            if (latestOrder) {
-                fetchedOrders.push(latestOrder);
-            }
-
-            // Separate orders into ongoing and previous
-            const ongoing = fetchedOrders.filter(order =>
-                ['Item Preparing', 'Packing', 'Out for Delivery'].includes(order.status)
-            );
-            const previous = fetchedOrders.filter(order =>
-                order.status === 'Delivered'
-            );
-
-            setOrders({ ongoing, previous });
-        } catch (error) {
-            toast.error("Error occurred while fetching orders");
-            console.error(error);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    fetchMyOrders();
-}, [url]);
-
+    fetchMyOrders(); // ✅ Call the function instead of redefining it
+  }, []);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -112,7 +108,7 @@ const MyOrders = ({ url }) => {
               <div className="order-icon">
                 <img src={assets.box} alt="Package" />
               </div>
-              
+
               <div className="order-items">
                 {order.items.map((item, idx) => (
                   <span key={idx}>
@@ -121,20 +117,20 @@ const MyOrders = ({ url }) => {
                   </span>
                 ))}
               </div>
-              
+
               <div className="order-price">
-              Rs. {order.amount ? order.amount.toLocaleString() : '0'}
+                Rs. {order.amount ? order.amount.toLocaleString() : '0'}
               </div>
-              
+
               <div className="order-count">
                 Items : {order.items.length}
               </div>
-              
+
               <div className="order-status">
                 <span className={`status-dot ${order.status.toLowerCase().replace(' ', '-')}`}></span>
                 {order.status}
               </div>
-              
+
               <button className="track-order-btn">
                 Track Order
               </button>
@@ -149,43 +145,43 @@ const MyOrders = ({ url }) => {
         {orders.previous.length === 0 ? (
           <p className="no-orders-message">No previous orders</p>
         ) : (
-            orders.previous.map((order, index) => (
-                <div className="order-row" key={index}>
-                    <div className="order-icon">
-                        <img src="/box-icon.png" alt="Package" />
-                    </div>
-            
-                    <div className="order-items">
-                        {order.items.map((item, idx) => (
-                            <span key={idx}>
-                                {item.name} x{item.quantity}
-                                {idx < order.items.length - 1 ? ', ' : ''}
-                            </span>
-                        ))}
-                    </div>
-            
-                    <div className="order-price">
-                        Rs. {order.amount ? order.amount.toLocaleString() : '0'}
-                    </div>
-            
-                    <div className="order-count">
-                        Items: {order.items.length}
-                    </div>
-            
-                    <div className="order-date">
-                        {formatDate(order.createdAt)}
-                    </div>
-            
-                    <div className="order-status delivered">
-                        <span className="status-dot delivered"></span>
-                        Delivered
-                    </div>
-            
-                    <button className="view-details-btn">
-                        <ChevronRight size={20} />
-                    </button>
-                </div>
-            ))
+          orders.previous.map((order, index) => (
+            <div className="order-row" key={index}>
+              <div className="order-icon">
+                <img src="/box-icon.png" alt="Package" />
+              </div>
+
+              <div className="order-items">
+                {order.items.map((item, idx) => (
+                  <span key={idx}>
+                    {item.name} x{item.quantity}
+                    {idx < order.items.length - 1 ? ', ' : ''}
+                  </span>
+                ))}
+              </div>
+
+              <div className="order-price">
+                Rs. {order.amount ? order.amount.toLocaleString() : '0'}
+              </div>
+
+              <div className="order-count">
+                Items: {order.items.length}
+              </div>
+
+              <div className="order-date">
+                {formatDate(order.createdAt)}
+              </div>
+
+              <div className="order-status delivered">
+                <span className="status-dot delivered"></span>
+                Delivered
+              </div>
+
+              <button className="view-details-btn">
+                <ChevronRight size={20} />
+              </button>
+            </div>
+          ))
         )}
       </section>
     </div>
