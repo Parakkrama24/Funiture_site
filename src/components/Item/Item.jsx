@@ -9,7 +9,7 @@ const Item = ({ id, name, price, description, image, onCartUpdate }) => {
     const [isAdded, setIsAdded] = useState(false);
     const [notification, setNotification] = useState(''); // Notification message state
 
-    useEffect(() => {
+    {/* useEffect(() => {
         checkCartStatus();
     }, []);
 
@@ -25,10 +25,13 @@ const Item = ({ id, name, price, description, image, onCartUpdate }) => {
         } catch (error) {
             console.error('Error checking cart status:', error);
         }
-    };
+    }; */}
 
     const addToCart = async () => {
         try {
+            console.log(quantity);
+            console.log(id);
+            
             const response = await axios.post('http://localhost:5000/api/cart', {
                 productId: id,
                 quantity: quantity,
