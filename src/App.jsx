@@ -12,12 +12,12 @@ import Cart from './pages/Cart/Cart';
 import Category from './pages/Category/Category';
 import DeliveryDetailsCheckout from './pages/DeliveryDetailsCheckout/DeliveryDetailsCheckout';
 import Home from './pages/Home/Home';
+import ItemDetailsPage from './pages/ItemDetailsPage/ItemDetailsPage';
 import List from './pages/List/List';
 import Mobileapp from './pages/Mobileapp/Mobileapp';
 import Orders from './pages/Orders/Orders';
 import Profile from './User/Profile/Profile';
-import ItemDetailsPage from './pages/ItemDetailsPage/ItemDetailsPage';
-import ItemDisplay from './components/ItemDisplay/ItemDisplay';
+//import ItemDisplay from './components/ItemDisplay/ItemDisplay';
 
 const App = () => {
   const [userType, setUserType] = useState(null); // Track if the user is an admin or regular user
