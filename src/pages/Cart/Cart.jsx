@@ -13,7 +13,7 @@ function Cart() {
     // Fetch cart items from the backend
     const fetchCartItems = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/cart", {
+        const response = await axios.get("https://new-sever.vercel.app/api/cart", {
           withCredentials: true,
         });
 
@@ -44,7 +44,7 @@ function Cart() {
   const handleRemoveItem = async (productId) => {
     try {
       // Send DELETE request to remove the item from the cart
-      const response = await axios.delete(`http://localhost:5000/api/cart/${productId}`, {
+      const response = await axios.delete(`https://new-sever.vercel.app/api/cart/${productId}`, {
         withCredentials: true,
       });
   

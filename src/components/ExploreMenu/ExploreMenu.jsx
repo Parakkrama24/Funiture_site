@@ -21,7 +21,7 @@ const ExploreMenu = ({ category, setCategory }) => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get("http://localhost:5000/api/products");
+                const response = await axios.get("https://new-sever.vercel.app/api/products");
                 if (response.status === 200) {
                     setProducts(response.data);
                     setFilteredProducts(response.data); // Initialize filtered products
@@ -39,6 +39,7 @@ const ExploreMenu = ({ category, setCategory }) => {
             // If clicked category is already active, reset to "All"
             setCategory("All");
             setFilteredProducts(products);
+
         } else {
             // Otherwise, filter by the selected category
             setCategory(selectedCategory);
@@ -63,7 +64,7 @@ const ExploreMenu = ({ category, setCategory }) => {
                         key={index}
                         className={`explore-menu-category-item ${
                             category === cat.name ? "active" : ""
-                        }`}
+                            }`}
                         onClick={() => handleCategoryClick(cat.name)}
                     >
                         <img

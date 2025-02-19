@@ -53,7 +53,22 @@ function DeliveryDetailsCheckout() {
     console.log('Delivery Details:', deliveryDetailsCheckout);
     console.log('Order Details:', orderData);
 
-    {/*After creating Stripe Process uncomment this*/ }
+    {/*-------------This is previous code by Neshadi------------------*/ }
+    {/*  try {
+      const response = await axios.post("https://new-sever.vercel.app/api/checkout", {
+        deliveryDetails,
+        totals: cartTotals,
+      });
+
+      if (response.status === 200) {
+        alert("Order successfully placed!");
+      }
+    } catch (error) {
+      console.error("Error during checkout:", error);
+    } */}
+
+
+    {/*-------------------After creating Stripe Process uncomment this------------------------*/ }
     {/*  e.preventDefault();
     let deliveryDetailsCheckout = [];
 
