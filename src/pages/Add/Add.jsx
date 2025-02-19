@@ -73,6 +73,7 @@ const Add = ({ url }) => {
 
     try { 
       const token = localStorage.getItem('token'); // Retrieve token from local storage (or your preferred method)
+      console.log(token);
       const response = await axios.post( 
         `https://new-sever.vercel.app/api/products/addProduct`, 
         itemData, 
