@@ -77,11 +77,11 @@ const App = () => {
         <Route path='/Item-Page'
         element={ <>
         <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} setShowLogin={setIsLoggedIn}/>
-        {/* <ItemDetailsPage/> */}
+        <ItemDetailsPage/>
         </>
 
         }/>
-        {/* <Route
+        <Route
           path="/cart"
           element={
             <>
@@ -89,7 +89,7 @@ const App = () => {
               <Cart />
             </>
           }
-        /> */}
+        />
     <Route
   path="/cart"
   element={
