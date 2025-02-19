@@ -1,11 +1,17 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useLocation } from 'react-router-dom';
 import "./DeliveryDetailsCheckout.css";
+import { StoreContext } from "../../context/StoreContext";
+import { deliveryDetails } from "autoprefixer";
 
 function DeliveryDetailsCheckout() {
+
+  const { getTotalCartAmount, token, item_list, cartItems, url } = useContext(StoreContext);
   const location = useLocation();
   const cartTotals = location.state?.cartTotals || { subTotal: 0, deliveryFee: 500, total: 0 };
+  const receivedCartItems = location.state?.cartItems || []; // ✅ Receive cart items
+
 
   const [deliveryDetails, setDeliveryDetails] = useState({
     firstName: "",
@@ -20,15 +26,23 @@ function DeliveryDetailsCheckout() {
   });
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setDeliveryDetails((prevDetails) => ({
-      ...prevDetails,
-      [name]: value,
-    }));
-  };
+    const name = e.target.name;
+    const value = e.target.value;
+    setDeliveryDetails(deliveryDetails => ({ ...deliveryDetails, [name]: value }))
+  }
 
-  const handleCheckout = async () => {
-    try {
+  const handleCheckout = async (e) => {
+    e.preventDefault();
+    let deliveryDetailsCheckout = [];
+
+    receivedCartItems.map((item) => {  // ✅ Use receivedCartItems instead of item_list
+      let itemInfo = { ...item };
+      itemInfo["quantity"] = item.quantity;
+      deliveryDetailsCheckout.push(itemInfo);
+    });
+
+    console.log(deliveryDetailsCheckout);
+    {/* try {
       const response = await axios.post("http://localhost:5000/api/checkout", {
         deliveryDetails,
         totals: cartTotals,
@@ -39,83 +53,29 @@ function DeliveryDetailsCheckout() {
       }
     } catch (error) {
       console.error("Error during checkout:", error);
-    }
+    } */}
   };
 
   return (
     <div className="delivery-checkout-container">
       <div className="delivery-form">
         <h3>DELIVERY INFORMATION</h3>
-        <form>
+        <form onSubmit={handleCheckout}>
           <div className="form-row">
-            <input
-              type="text"
-              name="firstName"
-              placeholder="First Name"
-              value={deliveryDetails.firstName}
-              onChange={handleInputChange}
-            />
-            <input
-              type="text"
-              name="lastName"
-              placeholder="Last Name"
-              value={deliveryDetails.lastName}
-              onChange={handleInputChange}
-            />
+            <input required type="text" name="firstName" placeholder="First Name" value={deliveryDetails.firstName} onChange={handleInputChange} />
+            <input required type="text" name="lastName" placeholder="Last Name" value={deliveryDetails.lastName} onChange={handleInputChange} />
           </div>
-          <input
-            type="email"
-            name="email"
-            placeholder="Email Address"
-            value={deliveryDetails.email}
-            onChange={handleInputChange}
-          />
-          <input
-            type="text"
-            name="street"
-            placeholder="Street"
-            value={deliveryDetails.street}
-            onChange={handleInputChange}
-          />
+          <input required type="email" name="email" placeholder="Email Address" value={deliveryDetails.email} onChange={handleInputChange} />
+          <input required type="text" name="street" placeholder="Street" value={deliveryDetails.street} onChange={handleInputChange} />
           <div className="form-row">
-            <input
-              type="text"
-              name="city"
-              placeholder="City"
-              value={deliveryDetails.city}
-              onChange={handleInputChange}
-            />
-            <input
-              type="text"
-              name="province"
-              placeholder="Province"
-              value={deliveryDetails.province}
-              onChange={handleInputChange}
-            />
+            <input required type="text" name="city" placeholder="City" value={deliveryDetails.city} onChange={handleInputChange} />
+            <input required type="text" name="province" placeholder="Province" value={deliveryDetails.province} onChange={handleInputChange} />
           </div>
           <div className="form-row">
-            <input
-              type="text"
-              name="zipCode"
-              placeholder="Zip Code"
-              value={deliveryDetails.zipCode}
-              onChange={handleInputChange}
-            />
-            <input
-              type="text"
-              name="country"
-              placeholder="Country"
-              value={deliveryDetails.country}
-              onChange={handleInputChange}
-            />
+            <input required type="text" name="zipCode" placeholder="Zip Code" value={deliveryDetails.zipCode} onChange={handleInputChange} />
+            <input required type="text" name="country" placeholder="Country" value={deliveryDetails.country} onChange={handleInputChange} />
           </div>
-          <input
-            type="text"
-            name="phone"
-            placeholder="Phone"
-            value={deliveryDetails.phone}
-            onChange={handleInputChange}
-          />
+          <input required type="text" name="phone" placeholder="Phone" value={deliveryDetails.phone} onChange={handleInputChange} />
         </form>
       </div>
 
@@ -140,7 +100,7 @@ function DeliveryDetailsCheckout() {
                   </tr>
                 </tbody>
               </table>
-              <button className="checkout-btn-delivery" onClick={handleCheckout}>
+              <button type='submit' className="checkout-btn-delivery" onClick={handleCheckout}>
                 Proceed to Payment
               </button>
             </div>
