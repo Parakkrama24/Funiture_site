@@ -4,6 +4,7 @@ import { ToastContainer } from 'react-toastify';
 import AdminNavbar from './components/AdminNavbar/AdminNavbar';
 import AdminSidebar from './components/AdminSidebar/AdminSidebar';
 import Footer from './components/Footer/Footer';
+import ItemDisplay from './components/ItemDisplay/ItemDisplay';
 import UserLoginPopUp from './components/LoginPopUp/UserLoginPopUp';
 import NavBar from './components/NavBar/NavBar';
 import AboutUs from './pages/AboutUs/AboutUs';
@@ -12,7 +13,7 @@ import Cart from './pages/Cart/Cart';
 import Category from './pages/Category/Category';
 import DeliveryDetailsCheckout from './pages/DeliveryDetailsCheckout/DeliveryDetailsCheckout';
 import Home from './pages/Home/Home';
-//import ItemDetailsPage from './pages/ItemDetailsPage/ItemDetailsPage';
+import ItemDetailsPage from './pages/ItemDetailsPage/ItemDetailsPage';
 import List from './pages/List/List';
 import Mobileapp from './pages/Mobileapp/Mobileapp';
 import Orders from './pages/Orders/Orders';
@@ -46,8 +47,8 @@ const App = () => {
               />
            
               <Home />
-              {/* <ItemDisplay category={"All"}/> */}
-              {/* <ItemDetailsPage/> */}
+              <ItemDisplay category={"All"}/> 
+              <ItemDetailsPage/> 
             </>
           }
         />
