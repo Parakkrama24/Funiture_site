@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import "./Category.css";
 import ExploreMenu from '../../components/ExploreMenu/ExploreMenu';
-import ItemDisplay from '../../components/ItemDisplay/ItemDisplay';
+// import ItemDisplay from '../../components/ItemDisplay/ItemDisplay';
+import "./Category.css";
 
 function Home() {
   const [category, setCategory] = useState("All");
@@ -9,7 +9,7 @@ function Home() {
   return (
     <div>
       <ExploreMenu category={category} setCategory={setCategory} />
-      <ItemDisplay category={category} />
+      {/* <ItemDisplay category={category} /> */}
     </div>
   );
 }
