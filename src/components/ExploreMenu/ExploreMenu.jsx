@@ -39,6 +39,7 @@ const ExploreMenu = ({ category, setCategory }) => {
             // If clicked category is already active, reset to "All"
             setCategory("All");
             setFilteredProducts(products);
+            console.log(products)
           
         } else {
             // Otherwise, filter by the selected category
@@ -88,6 +89,8 @@ const ExploreMenu = ({ category, setCategory }) => {
                             description={product.description}
                             price={product.price}
                             image={product.image}
+                            rating={product.rating}
+                            reviews={product.reviews}
                         />
                     ))
                 ) : (

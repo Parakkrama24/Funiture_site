@@ -5,7 +5,7 @@ import './Item.css';
 import { useNavigate } from 'react-router-dom';
 
 
-const Item = ({ id, name, price, description, image, onCartUpdate }) => {
+const Item = ({ id, name, price, description, image, onCartUpdate,rating,reviews}) => {
     const [quantity, setQuantity] = useState(1);
     const [isAdded, setIsAdded] = useState(false);
     const [notification, setNotification] = useState(''); // Notification message state
@@ -93,9 +93,9 @@ const Item = ({ id, name, price, description, image, onCartUpdate }) => {
         }, 3000); // Hide notification after 3 seconds
     };
 
-    const itemDetailPageNavigation=()=>{
-        Navigate("/Item-Page")
-    }
+    const itemDetailPageNavigation = () => {
+        Navigate("/Item-Page", { state: { id, name, price, description, image } });
+    };
 
     return (
         <div className='item'>
