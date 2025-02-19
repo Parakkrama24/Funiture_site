@@ -4,8 +4,8 @@ import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { assets } from '../../assets/assets';
-import { storage } from '../../FireBase/firebaseConfig';
-import Upload3DModel from '../../FireBase/Upload3DModel';
+import { storage } from '../../firebase/firebaseConfig';
+import Upload3DModel from '../../firebase/Upload3DModel';
 import './Add.css';
 
 const Add = ({ url }) => { 
