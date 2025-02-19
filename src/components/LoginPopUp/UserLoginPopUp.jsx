@@ -87,7 +87,7 @@ const UserLoginPopUp = ({ setShowLogin, setUserType,setIsLoggedIn }) => {
         setSuccessMessage('');
 
         try {
-            const result = await axios.post('http://localhost:5000/api/users/adminauth', {
+            const result = await axios.post('https://new-sever.vercel.app/api/users/adminauth', {
                 email: email,
                 password: password
             }, {
