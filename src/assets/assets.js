@@ -37,6 +37,7 @@ import wallart2 from './wallart2.jpg'
 import appstore from './appstore.png'
 import playstore from './playstore.png'
 import mobile from './3dmobile.png'
+import box from './box.png'
 
 export const assets = {
     logo_black,
@@ -78,7 +79,8 @@ export const assets = {
     furnitures,
     appstore,
     playstore,
-    mobile
+    mobile,
+    box
 }
 
 export const category_list=[

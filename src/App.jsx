@@ -17,6 +17,7 @@ import Mobileapp from './pages/Mobileapp/Mobileapp';
 import Orders from './pages/Orders/Orders';
 import Profile from './User/Profile/Profile';
 import PaymentSuccess from './pages/DeliveryDetailsCheckout/PaymentSuccess';
+import MyOrders from './pages/MyOrders/MyOrders';
 
 const App = () => {
   const [userType, setUserType] = useState(null); // Track if the user is an admin or regular user
@@ -124,6 +125,18 @@ const App = () => {
             </>
           }
         />
+
+        {/* My Orders Page */}
+
+         <Route 
+         path="/my-orders" 
+         element={
+          <>
+            <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} setShowLogin={setShowLogin} />
+            <MyOrders />
+          </>
+        }
+        />   
 
         {/* About Us Page */}
         <Route

@@ -47,7 +47,7 @@
   }
   
   .orders-button {
-    background: #4f46e5;
+    background: var(--green);
     color: white;
     padding: 12px 32px;
     border-radius: 12px;

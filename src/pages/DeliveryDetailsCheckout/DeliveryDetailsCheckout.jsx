@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useContext, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom"; // ✅ Import useNavigate
+import { useLocation, useNavigate } from "react-router-dom"; 
 import "./DeliveryDetailsCheckout.css";
 import { StoreContext } from "../../context/StoreContext";
 
@@ -41,9 +41,14 @@ function DeliveryDetailsCheckout() {
         address: deliveryDetails,  
         items: deliveryDetailsCheckout,
         total: cartTotals.total,
+        status: "Item Preparing",
+        createdAt: new Date().toISOString(),
     };
 
-    // ✅ Redirect to the dummy payment success page
+    // ✅ Save the order data to localStorage
+    localStorage.setItem("latestOrder", JSON.stringify(orderData));
+
+    // ✅ Navigate to PaymentSuccess page
     navigate('/paymentSuccess', { state: { orderData } });
 
     {/*After creating Stripe Process uncomment this*/}
@@ -144,3 +149,5 @@ function DeliveryDetailsCheckout() {
 }
 
 export default DeliveryDetailsCheckout;
+
+
