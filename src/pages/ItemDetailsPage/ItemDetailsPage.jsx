@@ -1,14 +1,14 @@
 import { useState } from "react";
+import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { useParams } from "react-router-dom";
-import "./ItemDetailsPage.css"; 
-import { FaStar, FaRegStar, FaStarHalfAlt } from "react-icons/fa";
+import "./ItemDetailsPage.css";
 
 const ItemDetails = () => {
   const { id } = useParams();
   const [quantity, setQuantity] = useState(1);
   const maxStars = 5;
 
-  // Dummy product data (Replace with API data)
+  // Dummy products data (Replace with API data)
   const product = {
     id,
     name: "Wireless Headphones",
