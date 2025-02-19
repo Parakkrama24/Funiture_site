@@ -8,7 +8,7 @@ import { storage } from '../../firebase/firebaseConfig';
 import Upload3DModel from '../../firebase/Upload3DModel';
 import './Add.css';
 
-const token = localStorage.getItem('token'); // Retrieve token from local storage (or your preferred method)
+
 
 const Add = ({ url }) => { 
   const [image, setImage] = useState(null); 
@@ -72,6 +72,7 @@ const Add = ({ url }) => {
     }; 
 
     try { 
+      const token = localStorage.getItem('token'); // Retrieve token from local storage (or your preferred method)
       const response = await axios.post( 
         `https://new-sever.vercel.app/api/products/addProduct`, 
         itemData, 
