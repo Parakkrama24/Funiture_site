@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useContext, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom"; 
+import { useLocation, useNavigate } from "react-router-dom";
 import "./DeliveryDetailsCheckout.css";
 import { StoreContext } from "../../context/StoreContext";
 
@@ -16,7 +16,7 @@ function DeliveryDetailsCheckout() {
     firstName: "",
     lastName: "",
     email: "",
-    street: "",
+    address: "",
     city: "",
     province: "",
     zipCode: "",
@@ -33,16 +33,16 @@ function DeliveryDetailsCheckout() {
     e.preventDefault();
 
     let deliveryDetailsCheckout = receivedCartItems.map((item) => ({
-        ...item,
-        quantity: item.quantity,
+      ...item,
+      quantity: item.quantity,
     }));
 
     let orderData = {
-        address: deliveryDetails,  
-        items: deliveryDetailsCheckout,
-        total: cartTotals.total,
-        status: "Item Preparing",
-        createdAt: new Date().toISOString(),
+      address: deliveryDetails,
+      items: deliveryDetailsCheckout,
+      total: cartTotals.total,
+      status: "Item Preparing",
+      createdAt: new Date().toISOString(),
     };
 
     // ✅ Save the order data to localStorage
@@ -50,8 +50,10 @@ function DeliveryDetailsCheckout() {
 
     // ✅ Navigate to PaymentSuccess page
     navigate('/paymentSuccess', { state: { orderData } });
+    console.log('Delivery Details:', deliveryDetailsCheckout);
+    console.log('Order Details:', orderData);
 
-    {/*After creating Stripe Process uncomment this*/}
+    {/*After creating Stripe Process uncomment this*/ }
     {/*  e.preventDefault();
     let deliveryDetailsCheckout = [];
 
@@ -93,7 +95,7 @@ function DeliveryDetailsCheckout() {
             <input required type="text" name="lastName" placeholder="Last Name" value={deliveryDetails.lastName} onChange={handleInputChange} />
           </div>
           <input required type="email" name="email" placeholder="Email Address" value={deliveryDetails.email} onChange={handleInputChange} />
-          <input required type="text" name="street" placeholder="Street" value={deliveryDetails.street} onChange={handleInputChange} />
+          <input required type="text" name="address" placeholder="address" value={deliveryDetails.address} onChange={handleInputChange} />
           <div className="form-row">
             <input required type="text" name="city" placeholder="City" value={deliveryDetails.city} onChange={handleInputChange} />
             <input required type="text" name="province" placeholder="Province" value={deliveryDetails.province} onChange={handleInputChange} />
