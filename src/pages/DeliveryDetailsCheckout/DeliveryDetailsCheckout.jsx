@@ -1,17 +1,16 @@
 import axios from "axios";
 import React, { useContext, useState } from "react";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from "react-router-dom"; // ✅ Import useNavigate
 import "./DeliveryDetailsCheckout.css";
 import { StoreContext } from "../../context/StoreContext";
-import { deliveryDetails } from "autoprefixer";
 
 function DeliveryDetailsCheckout() {
-
-  const { getTotalCartAmount, token, item_list, cartItems, url } = useContext(StoreContext);
+  const { token } = useContext(StoreContext);
   const location = useLocation();
-  const cartTotals = location.state?.cartTotals || { subTotal: 0, deliveryFee: 500, total: 0 };
-  const receivedCartItems = location.state?.cartItems || []; // ✅ Receive cart items
+  const navigate = useNavigate();  // ✅ Initialize navigate
 
+  const cartTotals = location.state?.cartTotals || { subTotal: 0, deliveryFee: 500, total: 0 };
+  const receivedCartItems = location.state?.cartItems || [];
 
   const [deliveryDetails, setDeliveryDetails] = useState({
     firstName: "",
@@ -26,34 +25,57 @@ function DeliveryDetailsCheckout() {
   });
 
   const handleInputChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setDeliveryDetails(deliveryDetails => ({ ...deliveryDetails, [name]: value }))
-  }
+    const { name, value } = e.target;
+    setDeliveryDetails((prevDetails) => ({ ...prevDetails, [name]: value }));
+  };
 
-  const handleCheckout = async (e) => {
+  const handleCheckout = (e) => {
     e.preventDefault();
+
+    let deliveryDetailsCheckout = receivedCartItems.map((item) => ({
+        ...item,
+        quantity: item.quantity,
+    }));
+
+    let orderData = {
+        address: deliveryDetails,  
+        items: deliveryDetailsCheckout,
+        total: cartTotals.total,
+    };
+
+    // ✅ Redirect to the dummy payment success page
+    navigate('/paymentSuccess', { state: { orderData } });
+
+    {/*After creating Stripe Process uncomment this*/}
+    {/*  e.preventDefault();
     let deliveryDetailsCheckout = [];
 
-    receivedCartItems.map((item) => {  // ✅ Use receivedCartItems instead of item_list
+    receivedCartItems.forEach((item) => {  // ✅ Use forEach instead of map
       let itemInfo = { ...item };
       itemInfo["quantity"] = item.quantity;
       deliveryDetailsCheckout.push(itemInfo);
     });
 
-    console.log(deliveryDetailsCheckout);
-    {/* try {
-      const response = await axios.post("http://localhost:5000/api/checkout", {
-        deliveryDetails,
-        totals: cartTotals,
-      });
+    let orderData = {
+      address: deliveryDetails,  
+      items: deliveryDetailsCheckout,
+      total: cartTotals.total
+    };
 
-      if (response.status === 200) {
-        alert("Order successfully placed!");
+    try {
+      let response = await axios.post("http://localhost:5000/api/checkout", orderData, { headers: { token } });
+      if (response.data.success) {
+        const { session_url } = response.data;
+        window.location.replace(session_url);
+      } else {
+        alert("Error processing your order");
       }
     } catch (error) {
-      console.error("Error during checkout:", error);
-    } */}
+      console.error("Checkout Error:", error);
+      alert("Something went wrong. Please try again.");
+    }
+
+    console.log(deliveryDetailsCheckout); */}
   };
 
   return (
@@ -100,7 +122,7 @@ function DeliveryDetailsCheckout() {
                   </tr>
                 </tbody>
               </table>
-              <button type='submit' className="checkout-btn-delivery" onClick={handleCheckout}>
+              <button type="submit" className="checkout-btn-delivery" onClick={handleCheckout}>
                 Proceed to Payment
               </button>
             </div>

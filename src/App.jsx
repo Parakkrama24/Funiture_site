@@ -16,6 +16,7 @@ import List from './pages/List/List';
 import Mobileapp from './pages/Mobileapp/Mobileapp';
 import Orders from './pages/Orders/Orders';
 import Profile from './User/Profile/Profile';
+import PaymentSuccess from './pages/DeliveryDetailsCheckout/PaymentSuccess';
 
 const App = () => {
   const [userType, setUserType] = useState(null); // Track if the user is an admin or regular user
@@ -43,7 +44,7 @@ const App = () => {
                 handleLogout={handleLogout}
                 setShowLogin={setShowLogin}
               />
-           
+
               <Home />
             </>
           }
@@ -65,7 +66,7 @@ const App = () => {
           path="/mobile-app"
           element={
             <>
-              <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout}  setShowLogin={setShowLogin} />
+              <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} setShowLogin={setShowLogin} />
               <Mobileapp />
             </>
           }
@@ -80,35 +81,46 @@ const App = () => {
             </>
           }
         /> */}
-    <Route
-  path="/cart"
-  element={
-    isLoggedIn ? (
-      <>
-        <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} setShowLogin={setShowLogin} />
-        <Cart />
-      </>
-    ) : (
-     
-        <UserLoginPopUp
-          setShowLogin={setShowLogin}
-          setIsLoggedIn={setIsLoggedIn}
-          setUserType={setUserType}
+        <Route
+          path="/cart"
+          element={
+            isLoggedIn ? (
+              <>
+                <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} setShowLogin={setShowLogin} />
+                <Cart />
+              </>
+            ) : (
+
+              <UserLoginPopUp
+                setShowLogin={setShowLogin}
+                setIsLoggedIn={setIsLoggedIn}
+                setUserType={setUserType}
+              />
+
+            )
+          }
         />
-      
-    )
-  }
-/>
 
-
-
+        {/* Payment Checkout Page */}
 
         <Route
           path="/deliverydetailscheckout"
           element={
             <>
-              <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout}  setShowLogin={setShowLogin}/>
+              <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} setShowLogin={setShowLogin} />
               <DeliveryDetailsCheckout />
+            </>
+          }
+        />
+
+        {/* Payment Success Page */}
+
+        <Route
+          path="/paymentSuccess"
+          element={
+            <>
+              <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} setShowLogin={setShowLogin} />
+              <PaymentSuccess />
             </>
           }
         />
@@ -118,7 +130,7 @@ const App = () => {
           path="/about-us"
           element={
             <>
-              <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout}  setShowLogin={setShowLogin} />
+              <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} setShowLogin={setShowLogin} />
               <AboutUs />
             </>
           }
@@ -129,7 +141,7 @@ const App = () => {
           path="/profile"
           element={
             <>
-              <NavBar isLoggedIn={true} handleLogout={handleLogout}  setShowLogin={setShowLogin}/>
+              <NavBar isLoggedIn={true} handleLogout={handleLogout} setShowLogin={setShowLogin} />
               <Profile />
             </>
           }
