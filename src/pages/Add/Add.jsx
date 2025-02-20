@@ -65,7 +65,7 @@ const Add = ({ url }) => {
         category: data.category, 
         image: base64Image, 
         imageUrl: url,
-        modelImageUrl: data.modelImageUrl, // Include the 3D model URL 
+        modelUrl: data.modelImageUrl, // Include the 3D model URL 
       }; 
     
 
